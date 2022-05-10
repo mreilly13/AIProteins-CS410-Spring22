@@ -10,8 +10,7 @@ Software version 1.0.0
 
 ## General info  
 
-AIProteins is a biotechnology startup working on developing new proteins.
-
+AIProteins is a biotechnology startup working on developing new proteins. AIProteins is focused on designing and engineering miniproteins for therapeutic and medical uses. An integral amino acid to design new proteins is cysteine. This amino acid is unique because of its natural ability to form bonds reversible covalent bonds in proteins. One of the important things in creating new proteins is to identify locations where cysteine can form stable disulfide(S-S) bonds. In this project we train a neural network model on currently identified proteins and their structures, so when working with new proteins the model can predict possible residue locations that can form disulfide bonds. These possible locations for residues are ranked from most to least optimal.
 ## Running required modules  
 
 This project is created and run with:  
