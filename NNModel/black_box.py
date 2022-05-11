@@ -21,7 +21,7 @@ def load_data():
         pdb file getter.
     """ 
     #data = np.genfromtxt("tmp/data.csv", delimiter=",")
-    """
+
     csv_type = [
     ('dist', np.float64), 
     ('omega', np.float64), 
@@ -39,9 +39,14 @@ def load_data():
     rich_ss = os.listdir(cwd + rich_ss_fp)
     rich_ss.sort()
     
+    data = np.zeros((1, 9))
+
     for i in rich_ss:
         pdb_data = np.loadtxt(cwd + rich_ss_fp + i, dtype=csv_type, delimiter=',')
-    """
+        np.vstack([data,pdb_data])
+    
+    
+
     
 
     features = np.copy(data[:, 0:4])
