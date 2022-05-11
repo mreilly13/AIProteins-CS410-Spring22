@@ -66,6 +66,7 @@ conda list
 Here is the list from the chimera that use to running tis project:
 <details><summary>click to open</summary>
 <p>
+  
 ```
 (tf) [zihan.ma001@chimerahead ~]$ conda list
 # packages in environment at /home/zihan.ma001/.conda/envs/tf:
