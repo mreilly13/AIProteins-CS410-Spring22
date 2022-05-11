@@ -1,11 +1,13 @@
+from calendar import c
+import os
 import numpy as np
 import tensorflow as tf
 from numpy import loadtxt
 from tensorflow import keras
 from tensorflow.keras import utils
-from tensorflow.keras.layers import BatchNormalization, Dense
+from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
-from util.helper import LossAndErrorPrintingCallback, _compare_results
+from util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
 
 #from sqlite3 import adapt
 
@@ -18,7 +20,28 @@ def load_data():
         Remove hardcoded data path and replace with parsed
         pdb file getter.
     """ 
-    data = np.genfromtxt("tmp/data.csv", delimiter=",")
+    #data = np.genfromtxt("tmp/data.csv", delimiter=",")
+    """
+    csv_type = [
+    ('dist', np.float64), 
+    ('omega', np.float64), 
+    ('theta', np.float64), 
+    ('phi', np.float64),
+    ('ssbond', np.int32),
+    ('chain1', (np.str_,1)),
+    ('res1', np.int32),
+    ('chain2', (np.str_,1)),
+    ('res2', np.int32)
+    ]
+    cwd = os.getcwd()
+    cwd = cwd[:len(cwd) - 8]
+    rich_ss_fp = "/Data/Rich_SS/"
+    rich_ss = os.listdir(cwd + rich_ss_fp)
+    rich_ss.sort()
+    
+    for i in rich_ss:
+        pdb_data = np.loadtxt(cwd + rich_ss_fp + i, dtype=csv_type, delimiter=',')
+    """
     
 
     features = np.copy(data[:, 0:4])
@@ -30,6 +53,8 @@ def load_data():
 
     labels = np.copy(data[:, 4])
 
+    print(features.shape, labels.shape)
+
     return [features, labels]
 
 
@@ -38,10 +63,8 @@ TODO:
     Will try experimenting with 
     - AdaMax Optimizer
     - AdaGrad Optimizer
-    - Binary Crossentropy Loss function
-    - Sparse Categorical Crossentropy loss function
 """
-def neural_network(data, batchNormalize=True, learning_rate=0.000001, batch_training=False, activation_function='ReLU'):
+def neural_network(data, batchNormalize=True, learning_rate=0.0001, batch_training=False, activation_function='ReLU'):
     """ Neural Network Model """
 
     # load the data in.
@@ -71,10 +94,6 @@ def neural_network(data, batchNormalize=True, learning_rate=0.000001, batch_trai
     Input_shape = (size_input,)
 
 
-    """
-    TODO:
-        Experiment with Drop layers to prevent overfitting.
-    """
     # Neural Network Model
     _model = []
     _model.append(keras.Input(shape=Input_shape, name='input_layer'))
@@ -84,6 +103,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.000001, batch_trai
         _model.append(BatchNormalization())
     
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer02'))
+    #_model.append(Dropout(.2))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer03'))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer04'))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer05'))
@@ -101,13 +121,25 @@ def neural_network(data, batchNormalize=True, learning_rate=0.000001, batch_trai
     y_test_vectors = utils.to_categorical(y_test)
     y_validate_vectors = utils.to_categorical(y_validate)
 
+    y_train_vectors = fix_vectors(y_train_vectors)
+    y_test_vectors = fix_vectors(y_test_vectors)
+    y_validate_vectors = fix_vectors(y_validate_vectors)
+
 
     # setting up optimizer and scheduler
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
-    SGD_optimizer= tf.keras.optimizers.Adam(learning_rate=learning_rate_schedule) #keras.optimizers.SGD(learning_rate=learning_rate_schedule)
+
+    optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
+                #keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
+                #keras.optimizers.Adamgrad(learning_rate=learning_rate_schedule) 
+                #keras.optimizers.SGD(learning_rate=learning_rate_schedule)
     
+    loss_function = keras.losses.categorical_crossentropy
+
+
+
     # setting up model.
-    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=SGD_optimizer, metrics='accuracy')
+    model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
 
     if batch_training: # we are training with a epoch of 1 and batch_size of 1 to obtain the learning curve.
         _batch_learning_curve_info = LossAndErrorPrintingCallback()
@@ -137,6 +169,11 @@ def neural_network(data, batchNormalize=True, learning_rate=0.000001, batch_trai
 
     # fit, evaluation, prediction
     if batch_training:
-        return [_history, results, _prediction_info, _batch_learning_curve_info.returnTraining(), _batch_learning_curve_info.returnTesting()]
+        return [_history, results, _prediction_info, _batch_learning_curve_info.returnTraining(), _batch_learning_curve_info.returnTesting(), model]
     
-    return [_history, results, _prediction_info]
+    return [_history, results, _prediction_info, model]
+
+
+def save_model(model, fileName):
+    path = "saved_models/"
+    model.save(path + fileName)

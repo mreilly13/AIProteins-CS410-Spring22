@@ -79,6 +79,14 @@ def dataset_split(data, labels):
 
     return [x_train, x_validate, x_test, y_train, y_validate, y_test]
 
+# fix cases where only 1 of 2 classes are found
+def fix_vectors(y_vector):
+    h, w = y_vector.shape
+    cmpr = np.ones((h, w))
+    if cmpr.all() == y_vector.all():
+        y_vector = np.append(y_vector, np.zeros((h, w)), axis=1)
+    return y_vector
+
 
 class LossAndErrorPrintingCallback(keras.callbacks.Callback):
     def __init__(self):
