@@ -7,6 +7,9 @@ conda --version
 The Anaconda Version used in cluster is 4.10.3
 
 ## Basic instruction of export and load anaconda enviorment (on windows)
+<details><summary>click to open</summary>
+<p>
+  
 https://towardsdatascience.com/how-to-export-and-load-anaconda-environments-for-data-science-projects-77dc3b781369
 #### Export
 ```
@@ -20,8 +23,12 @@ you can change the new enviroment name at the fist line of the yaml file
 ```
 name: tf
 ```
+</p>
+</details>
 
 ## Export windows enviorment into Linux (chimera cluster)
+<details><summary>click to open</summary>
+<p>
 https://stackoverflow.com/questions/51708668/conda-environment-from-windows-to-linux
 #### Export
 ```
@@ -44,7 +51,13 @@ Command for checking the conda environment package list
 ```
 conda list
 ```
-Here is the list for the chimera that use to running tis project
+</p>
+</details>
+
+
+Here is the list from the chimera that use to running tis project:
+<details><summary>click to open</summary>
+<p>
 ```
 (tf) [zihan.ma001@chimerahead ~]$ conda list
 # packages in environment at /home/zihan.ma001/.conda/envs/tf:
@@ -246,3 +259,5 @@ zipp                      3.6.0              pyhd3eb1b0_0
 zlib                      1.2.11               h7f8727e_4
 (tf) [zihan.ma001@chimerahead ~]$
 ```
+</p>
+</details>
