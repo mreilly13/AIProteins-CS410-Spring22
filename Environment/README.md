@@ -15,14 +15,16 @@ https://towardsdatascience.com/how-to-export-and-load-anaconda-environments-for-
 ```
 conda env export > \Users\Dario\Desktop\environment.yml
 ```
-#### Load
-```
-conda env create -f \Users\Dario\Desktop\environment.yml
-```
 you can change the new enviroment name at the fist line of the yaml file
 ```
 name: tf
 ```
+#### Load
+##### command for load the environment (use under the conda envirment/terminal)
+```
+conda env create -f \Users\Dario\Desktop\environment.yml
+```
+
 </p>
 </details>
 
@@ -35,12 +37,17 @@ https://stackoverflow.com/questions/51708668/conda-environment-from-windows-to-l
 ```
 conda env export --no-build > environment.yml
 ```
-#### Load
+#### Load  
+you can change the new enviroment name at the fist line of the yaml file
+```
+name: tf
+```
 Before load you may want to delete the last line if .yaml file is from windows OS
 
 And the load might fail because some packages are unique to windows
 just delete these missing packages until there is no error when loading
 
+##### command for load the environment (use under the conda envirment)
 ```
 conda env create -f environment.yml
 ```
