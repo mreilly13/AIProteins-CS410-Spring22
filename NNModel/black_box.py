@@ -49,15 +49,15 @@ def load_data():
             pdb_data = np.array([pdb_data])
         data = np.append(data,pdb_data,axis=0)
     
-
-
-    
+    data = data[1:]
 
     features = np.copy(data[:, 0:4])
     
     # preprocessing
     features[:, 0] = features[:, 0] / 20.0
     features[:, 1] = features[:, 1] / np.pi
+    features[:, 2] = features[:, 2] / np.pi
+    features[:, 3] = features[:, 3] / np.pi
     
 
     labels = np.copy(data[:, 4])
