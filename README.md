@@ -346,6 +346,10 @@ conda install -c anaconda scipy
 Try a different partition or specify multiple partitions (comma separated list) to allow it to use any partition on the list you give it.  
 
 List for the cores: https://www.umb.edu/rc/hpc/chimera/chimera_scheduler  
+Or use 'sinfo' to check the list of cores
+```
+sinfo
+```
 #### Run projct on CPU nodes
 ```
 $ srun -n 4 -N 1 -p Intel6126,Intel6240,AMD6276 -t 01:00:00 --pty /bin/bash  
@@ -353,9 +357,12 @@ $ srun -n 4 -N 1 -p Intel6126,Intel6240,AMD6276 -t 01:00:00 --pty /bin/bash
 This will find first avaliable node in Intel6126, Intel6240 and AMD6276.
 #### Run projct on GPU nodes
 ```
-srun -n 8 -N 1 -p DGXA100 -t 01:00:00 --gres=gpu:1 --export=NONE --pty /bin/bash
+srun -n 8 -N 1 -p DGXA100 -t 01:00:00 --mem=40gb --gres=gpu:1 --export=NONE --pty /bin/bash
 ```
 When submitting to the  GPU nodes: need to add "--gres=gpu:1 --export=NONE"  to the command,  and after login need to issue command "source /etc/profile".
+```
+source /etc/profile
+```
 
 #### Check the current waiting list  
 ```
