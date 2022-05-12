@@ -1,7 +1,7 @@
 from calendar import c
 import os
-#import numpy as np
-import cupy as np
+import numpy as np
+#import cupy as np
 import tensorflow as tf
 from numpy import loadtxt
 from tensorflow import keras
@@ -52,7 +52,7 @@ def load_data():
 
     print(features.shape, labels.shape)
 
-    return [features.get(), labels.get()]
+    return [features, labels]
 
 def test_load_data():
     data = np.genfromtxt("tmp/data.csv", delimiter=",")
@@ -69,7 +69,7 @@ def test_load_data():
 
     print(features.shape, labels.shape)
 
-    return [features.get(), labels.get()]
+    return [features, labels]
 
 """
 TODO:
@@ -91,7 +91,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
 
     # Hyperparameters:
-    num_epochs = 25
+    num_epochs = 15
     #batch_size = 100
     batch_size = 50
     
