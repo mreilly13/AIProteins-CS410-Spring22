@@ -3,6 +3,7 @@ from sklearn import metrics
 import matplotlib.pyplot as plt
 from .helper import util_helper
 import numpy as np
+import pandas as pd
 
 """
 
@@ -113,3 +114,8 @@ def roc_graph(prediction_info, extra=""):
     #plt.show()
     plt.savefig(graph_fp + "ROC.png")
     plt.close()
+
+def plotData(data):
+    pdb_chart = pd.DataFrame(data, columns=['dist', 'omega', 'theta', 'phi'])
+    seaborn.pairplot(pdb_chart)
+    plt.savefig(graph_fp + "linearGraphing.png")

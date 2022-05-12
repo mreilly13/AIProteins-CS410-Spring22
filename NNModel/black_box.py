@@ -1,6 +1,6 @@
 from calendar import c
 import os
-#import numpy as np
+import numpy as nnp
 import cupy as np
 import tensorflow as tf
 from numpy import loadtxt
@@ -56,18 +56,18 @@ def load_single_data(_data):
     """ load individual file data """
 
     data = _data
-    features = np.copy(data[:, 0:4])
+    features = nnp.copy(data[:, 0:4])
     
     # preprocessing
     features[:, 0] = features[:, 0] / 20.0
-    features[:, 1] = features[:, 1] / np.pi
-    features[:, 2] = features[:, 2] / np.pi
-    features[:, 3] = features[:, 3] / np.pi
+    features[:, 1] = features[:, 1] / nnp.pi
+    features[:, 2] = features[:, 2] / nnp.pi
+    features[:, 3] = features[:, 3] / nnp.pi
     
 
-    labels = np.copy(data[:, 4])
+    labels = nnp.copy(data[:, 4])
 
-    return [features.get(), labels.get()]
+    return [features, labels]
 
 
 def _test_load_data():
