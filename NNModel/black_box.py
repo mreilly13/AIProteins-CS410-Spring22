@@ -49,8 +49,6 @@ def load_data():
 
     labels = np.copy(data[:, 4])
 
-    print(features.shape, labels.shape)
-
     return [features.get(), labels.get()]
 
 # meant to be used when testing a loaded model.
@@ -231,11 +229,12 @@ def run_model(model, data):
     return [features, newLabels]
 
 def save_model(model, fileName):
-    path = "saved_models/"
+    path = "/NNModel/saved_models/"
+    os.makedirs(os.path.dirname(), exist_ok=True)
     model.save(path + fileName)
 
 def load_model(fileName):
-    path = "saved_models/"
+    path = "/NNModel/saved_models/"
     model = keras.models.load_model(path + fileName)
     model.summary()
     return model

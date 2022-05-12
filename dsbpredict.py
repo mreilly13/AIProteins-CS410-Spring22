@@ -25,9 +25,10 @@ argp = argparse.ArgumentParser()
 argp.add_argument("-a", "--all", action="store_true", help="perform entire setup process: download, parse, and sort the entire PDB, then train the network")
 argp.add_argument("-d", "--download", action="store_true", help="check the PDB for updates, or download the PDB; zipped files are stored in Data/raw")
 argp.add_argument("-u", "--unzip", action="store_true", help="unzip the compressed downloaded PDB files; unzipped files are stored in Data/pdb")
-argp.add_argument("-p", "--parse", action="store_true", help="parse the pdb files; output files are stored in Data/parsed")
-argp.add_argument("-o", "--organize", action="store_true", help="sort parsed pdb files on disulfide bonds")
+argp.add_argument("-p", "--parse", action="store_true", help="parse the PDB files; output files are stored in Data/parsed")
+argp.add_argument("-o", "--organize", action="store_true", help="sort parsed PDB files on disulfide bonds")
 argp.add_argument("-t", "--train", action="store_true", help="train the neural network")
+argp.add_argument("-e", nargs='*', help="evaluate pdb files")
 args = argp.parse_args()
 
 # running
