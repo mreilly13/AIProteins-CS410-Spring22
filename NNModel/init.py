@@ -1,4 +1,4 @@
-from black_box import neural_network, load_data, save_model
+from black_box import neural_network, load_data, save_model, test_load_data
 from util.helper import dataset_split, feature_scaling
 import util.graphs as graphs
 
@@ -17,7 +17,8 @@ YF = Yes Feature scaling
 def main():
 
     # load and split data
-    dataset = load_data()
+    dataset = test_load_data()
+    # dataset = load_data()
     feature_scaled_dataset = feature_scaling(dataset) # normalize the data with feature scaling formula
     split_data = dataset_split(feature_scaled_dataset[0], feature_scaled_dataset[1])
 
@@ -31,7 +32,8 @@ def main():
     eta_t_loss = []
 
     # 0
-    YBYF001 = neural_network(split_data, True, learning_rate=0.001)
+    YBYF001 = neural_network(split_data, True, learning_rate=0.00001)
+    #YBYF001 = neural_network(split_data, True, learning_rate=0.001)
     save_model(YBYF001[3], "Model001_510")
     
     eta_v_loss.append(YBYF001[0].history['val_loss'][0])

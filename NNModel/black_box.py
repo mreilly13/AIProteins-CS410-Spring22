@@ -1,6 +1,7 @@
 from calendar import c
 import os
-import numpy as np
+#import numpy as np
+import cupy as np
 import tensorflow as tf
 from numpy import loadtxt
 from tensorflow import keras
@@ -22,17 +23,6 @@ def load_data():
     """ 
     #data = np.genfromtxt("tmp/data.csv", delimiter=",")
 
-    csv_type = [
-    ('dist', np.float64), 
-    ('omega', np.float64), 
-    ('theta', np.float64), 
-    ('phi', np.float64),
-    ('ssbond', np.int32),
-    ('chain1', (np.str_,1)),
-    ('res1', np.int32),
-    ('chain2', (np.str_,1)),
-    ('res2', np.int32)
-    ]
     cwd = os.getcwd()
     cwd = cwd[:len(cwd) - 8]
     rich_ss_fp = "/Data/Rich_SS/"
@@ -43,8 +33,6 @@ def load_data():
 
     for i in rich_ss:
         pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
-        #pdb_data = np.loadtxt(cwd + rich_ss_fp + i, dtype=csv_type, delimiter=',')
-        #print(i, str(pdb_data.shape) + "\n")
         if pdb_data.shape == (9,):
             pdb_data = np.array([pdb_data])
         data = np.append(data,pdb_data,axis=0)
@@ -64,8 +52,24 @@ def load_data():
 
     print(features.shape, labels.shape)
 
-    return [features, labels]
+    return [features.get(), labels.get()]
 
+def test_load_data():
+    data = np.genfromtxt("tmp/data.csv", delimiter=",")
+    features = np.copy(data[:, 0:4])
+    
+    # preprocessing
+    features[:, 0] = features[:, 0] / 20.0
+    features[:, 1] = features[:, 1] / np.pi
+    features[:, 2] = features[:, 2] / np.pi
+    features[:, 3] = features[:, 3] / np.pi
+    
+
+    labels = np.copy(data[:, 4])
+
+    print(features.shape, labels.shape)
+
+    return [features.get(), labels.get()]
 
 """
 TODO:
@@ -73,7 +77,7 @@ TODO:
     - AdaMax Optimizer
     - AdaGrad Optimizer
 """
-def neural_network(data, batchNormalize=True, learning_rate=0.0001, batch_training=False, activation_function='ReLU'):
+def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_training=False, activation_function='ReLU'):
     """ Neural Network Model """
 
     # load the data in.
@@ -88,14 +92,18 @@ def neural_network(data, batchNormalize=True, learning_rate=0.0001, batch_traini
 
     # Hyperparameters:
     num_epochs = 25
-    batch_size = 100
+    #batch_size = 100
+    batch_size = 50
+    
     if batch_training:
         num_epochs = 1
         batch_size = 1
 
     eta = learning_rate
     decay_factor = 0.95
-    size_hidden = 500 # nodes per layer
+    #size_hidden = 500 # nodes per layer
+    size_hidden = 250
+
 
     # static parameters
     size_input = 4 # number of features

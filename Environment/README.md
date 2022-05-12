@@ -13,7 +13,11 @@ The Anaconda Version used in cluster is 4.10.3
 https://towardsdatascience.com/how-to-export-and-load-anaconda-environments-for-data-science-projects-77dc3b781369
 #### Export
 ```
-conda env export > \Users\Dario\Desktop\environment.yml
+Linux:
+conda env export --no-builds | grep -v "prefix" > environment.yml
+
+Windows:
+conda env export --no-builds | findstr -v "prefix" > environment.yml
 ```
 you can change the new enviroment name at the fist line of the yaml file
 ```
@@ -22,7 +26,7 @@ name: tf
 #### Load
 ##### command for load the environment (use under the conda envirment/terminal)
 ```
-conda env create -f \Users\Dario\Desktop\environment.yml
+conda env create -f environment.yml
 ```
 
 </p>
