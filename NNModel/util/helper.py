@@ -55,8 +55,6 @@ def util_helper(y_pred, y_test):
 # X = (x[i] - mean) / standard_diviation
 def feature_scaling(dataset):
     data = dataset[0]
-    print(len(data))
-    print(data.shape)
     for i in range(len(data)):
         mean = np.mean(data[i, :])
         sd = np.std(data[i, :])

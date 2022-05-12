@@ -232,7 +232,7 @@ def save_model(model, fileName):
     cwd = os.getcwd()
     sm_path = "/NNModel/saved_models/"
     os.makedirs(os.path.dirname(cwd + sm_path), exist_ok=True)
-    model.save(sm_path + fileName)
+    model.save(cwd + sm_path + fileName)
 
 def load_model(fileName):
     cwd = os.getcwd()

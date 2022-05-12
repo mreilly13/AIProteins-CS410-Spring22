@@ -16,6 +16,7 @@ parsed_fp = "/Data/Parsed/"
 rich_ss_fp = "/Data/Rich_SS/"
 sparse_ss_fp = "/Data/Sparse_SS/"
 no_ss_fp = "/Data/No_SS/"
+test_fp = "/Testing"
 zip_ext = ".ent.gz"
 pdb_ext = ".pdb"
 parse_ext = ".csv"
@@ -143,5 +144,14 @@ if args.organize or args.all:
             print("already sorted")
 if args.train or args.all:
     train.main()
+"""
 if args.e:
-    print(args.e)
+    os.makedirs(os.path.dirname(cwd + raw_fp), exist_ok=True)
+    for a in args.e:
+        if os.path.isdir(a):
+            contents = os.listdir(a)
+            c.sort()
+            for f in c:
+        else:
+            print("is a file")
+            """
