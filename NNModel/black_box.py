@@ -230,7 +230,7 @@ def run_model(model, data):
 
 def save_model(model, fileName):
     path = "/NNModel/saved_models/"
-    os.makedirs(os.path.dirname(), exist_ok=True)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     model.save(path + fileName)
 
 def load_model(fileName):

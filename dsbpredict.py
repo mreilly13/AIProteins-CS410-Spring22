@@ -143,3 +143,5 @@ if args.organize or args.all:
             print("already sorted")
 if args.train or args.all:
     train.main()
+
+print(args.e)
