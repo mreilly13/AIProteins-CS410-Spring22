@@ -236,6 +236,7 @@ def save_model(model, fileName):
 
 def load_model(fileName):
     cwd = os.getcwd()
+    os.makedirs(os.path.dirname("NNModel/util/graph_output/"), exist_ok=True)
     sm_path = "/NNModel/saved_models/"
     model = keras.models.load_model(cwd + sm_path + fileName)
     model.summary()
