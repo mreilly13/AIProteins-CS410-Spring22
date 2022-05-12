@@ -229,12 +229,14 @@ def run_model(model, data):
     return [features, newLabels]
 
 def save_model(model, fileName):
-    path = "/NNModel/saved_models/"
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    model.save(path + fileName)
+    cwd = os.getcwd()
+    sm_path = "/NNModel/saved_models/"
+    os.makedirs(os.path.dirname(cwd + sm_path), exist_ok=True)
+    model.save(sm_path + fileName)
 
 def load_model(fileName):
-    path = "/NNModel/saved_models/"
-    model = keras.models.load_model(path + fileName)
+    cwd = os.getcwd()
+    sm_path = "/NNModel/saved_models/"
+    model = keras.models.load_model(cwd + sm_path + fileName)
     model.summary()
     return model

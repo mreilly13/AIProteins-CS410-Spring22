@@ -32,7 +32,7 @@ argp.add_argument("-e", nargs='*', help="evaluate pdb files")
 args = argp.parse_args()
 
 # running
-if not (args.download or args.unzip or args.parse or args.organize or args.train or args.all):
+if not (args.download or args.unzip or args.parse or args.organize or args.train or args.all or args.e):
     argp.print_help()
     exit(0)
 else:
@@ -143,5 +143,5 @@ if args.organize or args.all:
             print("already sorted")
 if args.train or args.all:
     train.main()
-
-print(args.e)
+if args.e:
+    print(args.e)
