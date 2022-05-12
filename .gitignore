@@ -134,3 +134,6 @@ dmypy.json
 .listing
 pdb*.csv
 failed.csv
+
+# result files
+*.png

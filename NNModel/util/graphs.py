@@ -10,6 +10,8 @@ import numpy as np
 
 """
 
+graph_fp = "NNmodel/util/graph_output/"
+
 def parameter_tuning(v_loss, t_loss, title):
 
     plt.plot(v_loss, "o", 1, color="red", label="Validation loss")
@@ -18,20 +20,20 @@ def parameter_tuning(v_loss, t_loss, title):
     plt.title(title)
     plt.xlabel("Model")
     plt.ylabel("Loss")
-    plt.legend(loc='upper right')
+    plt.legend(loc="upper right")
     #plt.show()
-    plt.savefig('util/graph_output//parameterTuning.png')
+    plt.savefig(graph_fp + "parameterTuning.png")
     plt.close()
 
 def learning_curve(learn_info): # for batch learning
     plt.plot(learn_info[0])
     plt.plot(learn_info[1])
-    plt.title('accuracy over samples')
+    plt.title("accuracy over samples")
     plt.xlabel("Samples")
     plt.ylabel("Cost")
-    plt.legend(['train', 'loss'], loc='upper left')
+    plt.legend(["train", "loss"], loc="upper left")
     #plt.show()
-    plt.savefig('util/graph_output//learningCurve.png')
+    plt.savefig(graph_fp + "learningCurve.png")
     plt.close()
 
 def confusion_matrix(prediction_info):
@@ -43,11 +45,11 @@ def confusion_matrix(prediction_info):
 
     cf_matrix = metrics.confusion_matrix(y_test_1d, y_pred_1d)
 
-    ax = seaborn.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, fmt='.2%', cmap='Reds')
+    ax = seaborn.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, fmt=".2%", cmap="Reds")
 
-    ax.set_title('Confusion Matrix\n')
-    #ax.set_xlabel('\nPredicted Location')
-    #ax.set_ylabel('Actual Location')
+    ax.set_title("Confusion Matrix\n")
+    #ax.set_xlabel("\nPredicted Location")
+    #ax.set_ylabel("Actual Location")
 
     # Ticket labels - List must be in alphabetical order
     #ax.xaxis.set_ticklabels(["""FILL IN"""])
@@ -55,7 +57,7 @@ def confusion_matrix(prediction_info):
 
     # Display the visualization of the Confusion Matrix.
     #plt.show()
-    plt.savefig('util/graph_output//confusionMatrix.png')
+    plt.savefig(graph_fp + "confusionMatrix.png")
     plt.close()
 
 def multi_roc_graph(prediction_info1, prediction_info2, extra=""):
@@ -88,7 +90,7 @@ def multi_roc_graph(prediction_info1, prediction_info2, extra=""):
     plt.ylabel("True Positive Rate")
     plt.legend(loc="lower right")
     # plt.show()
-    plt.savefig('util/graph_output//multiROC.png')
+    plt.savefig(graph_fp + "multiROC.png")
     plt.close()
 
 def roc_graph(prediction_info, extra=""):
@@ -109,5 +111,5 @@ def roc_graph(prediction_info, extra=""):
     plt.ylabel("True Positive Rate")
     plt.legend(loc="lower right")
     #plt.show()
-    plt.savefig("util/graph_output/ROC.png")
+    plt.savefig(graph_fp + "ROC.png")
     plt.close()

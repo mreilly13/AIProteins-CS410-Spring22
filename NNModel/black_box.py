@@ -24,7 +24,6 @@ def load_data():
     #data = np.genfromtxt("tmp/data.csv", delimiter=",")
 
     cwd = os.getcwd()
-    cwd = cwd[:len(cwd) - 8]
     rich_ss_fp = "/Data/Rich_SS/"
     rich_ss = os.listdir(cwd + rich_ss_fp)
     rich_ss.sort()
@@ -55,7 +54,7 @@ def load_data():
     return [features, labels]
 
 def test_load_data():
-    data = np.genfromtxt("tmp/data.csv", delimiter=",")
+    data = np.genfromtxt("NNModel/tmp/data.csv", delimiter=",")
     features = np.copy(data[:, 0:4])
     
     # preprocessing
@@ -134,9 +133,9 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
 
     # initializing label in vector form [1, 0, ...], [0, 1, ...], ...
-    y_train_vectors = utils.to_categorical(y_train)
-    y_test_vectors = utils.to_categorical(y_test)
-    y_validate_vectors = utils.to_categorical(y_validate)
+    y_train_vectors = keras.utils.to_categorical(y_train)
+    y_test_vectors = keras.utils.to_categorical(y_test)
+    y_validate_vectors = keras.utils.to_categorical(y_validate)
 
     y_train_vectors = fix_vectors(y_train_vectors)
     y_test_vectors = fix_vectors(y_test_vectors)
