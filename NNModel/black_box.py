@@ -69,6 +69,23 @@ def load_single_data(_data):
 
     return [features, labels]
 
+def load_ss_data():
+    data = load_data()
+    features = data[0]
+    labels = data[1]
+
+    ss_features = []
+
+
+    for i in range(len(features)):
+        if labels[i] == 1:
+            ss_features.append(features[i])
+    
+    ss_labels = nnp.ones((len(ss_features)))
+
+    return [ss_features, ss_labels]
+
+
 
 def _test_load_data():
     """ use this only for internal testing """
