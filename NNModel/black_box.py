@@ -1,7 +1,7 @@
 from calendar import c
 import os
-import numpy as np
-#import cupy as np
+#import numpy as np
+import cupy as np
 import tensorflow as tf
 from numpy import loadtxt
 from tensorflow import keras
@@ -51,7 +51,7 @@ def load_data():
 
     print(features.shape, labels.shape)
 
-    return [features, labels]
+    return [features.get(), labels.get()]
 
 # meant to be used when testing a loaded model.
 def load_file(_data):
@@ -69,7 +69,7 @@ def load_file(_data):
 
     labels = np.copy(data[:, 4])
 
-    return [features, labels]
+    return [features.get(), labels.get()]
 
 
 def _test_load_data():
@@ -89,7 +89,7 @@ def _test_load_data():
 
     print(features.shape, labels.shape)
 
-    return [features, labels]
+    return [features.get(), labels.get()]
 
 """
 TODO:
