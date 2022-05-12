@@ -52,7 +52,7 @@ def load_data():
     return [features.get(), labels.get()]
 
 # meant to be used when testing a loaded model.
-def load_file(_data):
+def load_single_data(_data):
     """ load individual file data """
 
     data = _data

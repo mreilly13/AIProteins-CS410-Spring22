@@ -7,6 +7,7 @@ import gzip
 import shutil
 import Parser.parse_pdb as parser
 import NNModel.init as train
+import NNModel.launch_model as test
 
 # directories
 cwd = os.getcwd()
@@ -16,7 +17,7 @@ parsed_fp = "/Data/Parsed/"
 rich_ss_fp = "/Data/Rich_SS/"
 sparse_ss_fp = "/Data/Sparse_SS/"
 no_ss_fp = "/Data/No_SS/"
-test_fp = "/Testing"
+test_fp = "/Testing/"
 zip_ext = ".ent.gz"
 pdb_ext = ".pdb"
 parse_ext = ".csv"
@@ -144,14 +145,24 @@ if args.organize or args.all:
             print("already sorted")
 if args.train or args.all:
     train.main()
-"""
+if args.e:
+    raw = np.genfromtxt(args.e[0], delimiter=',')
+    test.load(raw)
+"""    
 if args.e:
     os.makedirs(os.path.dirname(cwd + raw_fp), exist_ok=True)
-    for a in args.e:
-        if os.path.isdir(a):
-            contents = os.listdir(a)
-            c.sort()
-            for f in c:
+    for arg in args.e:
+        if os.path.isdir(arg):
+            contents = os.listdir(arg)
+            contents.sort()
+            for f in contents:
+                if f.endswith(".pdb"):
+                    print(f, "is a pdb file")
+                else:
+                    print(f, "is not a pdb file")
         else:
-            print("is a file")
-            """
+            if arg.endswith(".pdb"):
+                print(arg, "is a pdb file")
+            else:
+                print(arg, "is not a pdb file")
+"""
