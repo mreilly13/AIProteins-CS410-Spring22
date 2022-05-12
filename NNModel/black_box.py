@@ -8,7 +8,7 @@ from tensorflow import keras
 from tensorflow.keras import utils
 from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
-from util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
+from NNModel.util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
 
 #from sqlite3 import adapt
 
