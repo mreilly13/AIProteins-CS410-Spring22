@@ -53,8 +53,29 @@ def load_data():
 
     return [features, labels]
 
-def test_load_data():
-    data = np.genfromtxt("NNModel/tmp/data.csv", delimiter=",")
+# meant to be used when testing a loaded model.
+def load_file(_data):
+    """ load individual file data """
+
+    data = _data
+    features = np.copy(data[:, 0:4])
+    
+    # preprocessing
+    features[:, 0] = features[:, 0] / 20.0
+    features[:, 1] = features[:, 1] / np.pi
+    features[:, 2] = features[:, 2] / np.pi
+    features[:, 3] = features[:, 3] / np.pi
+    
+
+    labels = np.copy(data[:, 4])
+
+    return [features, labels]
+
+
+def _test_load_data():
+    """ use this only for internal testing """
+
+    data = np.genfromtxt("tmp/data.csv", delimiter=",")
     features = np.copy(data[:, 0:4])
     
     # preprocessing
@@ -189,7 +210,32 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     
     return [_history, results, _prediction_info, model]
 
+def run_model(model, data):
+    features = data[0]
+    labels = data[1]
+
+    y_vectors = utils.to_categorical(labels)
+    predictions = model.predict(features)
+    _prediction_info = _compare_results(predictions, y_vectors)
+    y_predicted = _prediction_info[0]
+
+    h, w = y_predicted.shape
+    special_interest = np.zeros((h, w - 1))
+    for i in range(len(y_vectors)):
+        if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
+            if y_vectors[i][0] == 1 and y_vectors[i][1] == 0 and y_predicted[i][0] == 0 and y_predicted[i][1] == 1:
+                special_interest[i] = 1
+
+    labels = labels.reshape(len(labels), 1)
+    newLabels = np.append(labels, special_interest, axis = 1)
+    return [features, newLabels]
 
 def save_model(model, fileName):
     path = "saved_models/"
     model.save(path + fileName)
+
+def load_model(fileName):
+    path = "saved_models/"
+    model = keras.models.load_model(path + fileName)
+    model.summary()
+    return model
