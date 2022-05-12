@@ -5,7 +5,7 @@ Software version 1.0.0
 * [General info](#general-info)  
 * [Running required modules](#running-required-modules)  
 * [Setup](#setup)   
-* [Chimera script](#chimera-script)  
+* [UMB Chimera script](#umb-chimera-script)  
 * [xxx](#xxx)  
 
 ## General info  
@@ -21,9 +21,9 @@ xxx verson == xxx
 xxx verson == xxx  
 
 #### Here is the list from the chimera that use to running tis project:(not all of them are needed)
-check the list under conda envirment [Load Anaconda on UMB chimera cluster](#load-anaconda-on-umb-chimera-cluster) 
+check the list under conda envirment 
 ```
-conda list
+$ conda list
 ```
 <details><summary>click to open</summary>
 <p>
@@ -236,53 +236,72 @@ zlib                      1.2.11               h7f8727e_4
 
 ## Setup  
 
-1. Git command for moving project into cluster
+### 1. Git command for moving project into cluster
+
+<details><summary>click to open</summary>
+<p>
 
 #### Make a copy (At the first time)
 ```
-git clone
+$ git clone
 ```
 #### Get changes (It the projec already exist)
 Do under the path /DSBPredict/
 ```
-git stash
+$ git stash
 ```
 then
 ```
-git pull
+$ git pull
 ```
 
-2. Install(Load) Anaconda on UMB chimera cluster
+</p>
+</details>       
+
+### 2. Install(Load) Anaconda on UMB chimera cluster
+
+<details><summary>click to open</summary>
+<p>
 
 #### Load Anaconda on UMB chimera cluster
 first, find Anaconda version that avaliable on chimera cluster module
 ```
-module show
+$ module show
 ```
 then, load needed Anaconda version (in this case, Anaconda verson >= 4.10.3)
 ```
-module load
+$ module load
 ```
 Filally, check all loaded modules
 ```
-module list
+$ module list
 ```
 Remenber you need to restart the terminal after first load Anaconda
 
 Official instructions on module: https://www.umb.edu/rc/kb/modules
 
-3. Load einvirment into cluster
+</p>
+</details>       
+
+### 3. Load einvirment into cluster
 detiled infomation is in Environment folder
+
+<details><summary>click to open</summary>
+<p>
 
 #### First change path to /DSBPredict/environment/
 ```
-cd /DSBPredict/environment/
+$ cd /DSBPredict/environment/
 ```
 #### Command for load the environment (use under the conda envirment) 
 ```
-conda env create -f environment.yml
+$ conda env create -f environment.yml
 ```
-4. PyTorch  (now this and scipy are just for record the fomat since conda command should set up everything)
+
+</p>
+</details>       
+
+### 4. PyTorch  (now this and scipy are just for record the fomat since conda command should set up everything)
 
 <details><summary>click to open</summary>
 <p>
@@ -348,7 +367,7 @@ Try a different partition or specify multiple partitions (comma separated list) 
 List for the cores: https://www.umb.edu/rc/hpc/chimera/chimera_scheduler  
 Or use 'sinfo' to check the list of cores
 ```
-sinfo
+$ sinfo
 ```
 #### Run projct on CPU nodes
 ```
@@ -357,21 +376,18 @@ $ srun -n 4 -N 1 -p Intel6126,Intel6240,AMD6276 -t 01:00:00 --pty /bin/bash
 This will find first avaliable node in Intel6126, Intel6240 and AMD6276.
 #### Run projct on GPU nodes
 ```
-srun -n 8 -N 1 -p DGXA100 -t 01:00:00 --mem=40gb --gres=gpu:1 --export=NONE --pty /bin/bash
+$ srun -n 8 -N 1 -p DGXA100 -t 01:00:00 --mem=40gb --gres=gpu:1 --export=NONE --pty /bin/bash
 ```
 When submitting to the  GPU nodes: need to add "--gres=gpu:1 --export=NONE"  to the command,  and after login need to issue command "source /etc/profile".
 ```
-source /etc/profile
+$ source /etc/profile
 ```
 
 #### Check the current waiting list  
 ```
 $ squeue  
 ```
-#### Help info  
-```
-$ sinfo  
-```
+
 
 
 
