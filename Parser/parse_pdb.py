@@ -18,7 +18,7 @@ csv_type = [
 csv_format = ['%f','%f','%f','%f','%d','%s','%d','%s','%d']
 
 # parse a PDB file, extracting cysteine information
-def parse(filename):
+def parse_cys(filename):
     pdb = parser.parse_pdb(filename)
     if pdb == []:
         return (1 , [])
@@ -31,6 +31,48 @@ def parse(filename):
             xyz.append(pdb['xyz'][i])
             idx.append(pdb['idx'][i])
             res.append(pdb['res'][i])
+    if xyz == []:
+        return (2, [])
+    xyz = np.array(xyz)
+    xyz_ref = torch.tensor(xyz[:,:3,:]).float()
+    c6d_ref = geometry.xyz_to_c6d(xyz_ref[None].permute(0,2,1,3),{'DMAX':20.0}).numpy()
+    c6d = []
+    i = 0
+    for row in c6d_ref[0]:
+        j = 0
+        for col in row:
+            if j > i and col[0] < 999:
+                val = [n for n in col]
+                if (idx[i][0], idx[i][1], idx[j][0], idx[j][1]) in ssbond:
+                    val.append(1)
+                else:
+                    val.append(0)
+                val.append(idx[i][0])
+                val.append(idx[i][1])
+                val.append(idx[j][0])
+                val.append(idx[j][1])
+                structd = np.array(tuple(val), dtype=csv_type)
+                c6d.append(structd)
+            j += 1
+        i += 1
+    if c6d == []:
+        return (3, [])
+    else:
+        return (0, c6d)
+
+# parse a PDB file, irrespective cysteine information
+def parse_all(filename):
+    pdb = parser.parse_pdb(filename)
+    if pdb == []:
+        return (1 , [])
+    ssbond = pdb['ssbond']
+    xyz = []
+    idx = []
+    res = []
+    for i in range(pdb['xyz'].shape[0]):
+        xyz.append(pdb['xyz'][i])
+        idx.append(pdb['idx'][i])
+        res.append(pdb['res'][i])
     if xyz == []:
         return (2, [])
     xyz = np.array(xyz)

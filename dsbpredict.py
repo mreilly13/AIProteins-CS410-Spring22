@@ -8,6 +8,7 @@ import shutil
 import Parser.parse_pdb as parser
 import NNModel.init as train
 import NNModel.launch_model as test
+import NNModel.black_box as model
 
 # directories
 cwd = os.getcwd()
@@ -17,14 +18,15 @@ parsed_fp = "/Data/Parsed/"
 rich_ss_fp = "/Data/Rich_SS/"
 sparse_ss_fp = "/Data/Sparse_SS/"
 no_ss_fp = "/Data/No_SS/"
-test_fp = "/Testing/"
+test_fp = "/Tested/"
 zip_ext = ".ent.gz"
 pdb_ext = ".pdb"
 parse_ext = ".csv"
+result_ext = ".txt"
 
 # parsing command line arguments
 argp = argparse.ArgumentParser()
-argp.add_argument("-a", "--all", action="store_true", help="perform entire setup process: download, parse, and sort the entire PDB, then train the network")
+argp.add_argument("-a", "--all", action="store_true", help="perform entire setup process: unzip, parse, and sort the entire PDB, then train the network")
 argp.add_argument("-d", "--download", action="store_true", help="check the PDB for updates, or download the PDB; zipped files are stored in Data/raw")
 argp.add_argument("-u", "--unzip", action="store_true", help="unzip the compressed downloaded PDB files; unzipped files are stored in Data/pdb")
 argp.add_argument("-p", "--parse", action="store_true", help="parse the PDB files; output files are stored in Data/parsed")
@@ -45,7 +47,7 @@ else:
     os.makedirs(os.path.dirname(cwd + sparse_ss_fp), exist_ok=True)
     os.makedirs(os.path.dirname(cwd + no_ss_fp), exist_ok=True)
     
-if args.download or args.all:
+if args.download:
     proc = subprocess.Popen('/bin/bash', text=True, stdin=subprocess.PIPE, stdout=sys.stdout, stderr=sys.stderr)
     proc.communicate('Data/download.sh')
 if args.unzip or args.all:
@@ -87,7 +89,7 @@ if args.parse or args.all:
             parsed_path = cwd + parsed_fp + fullname
             if not (fullname in parsed and os.path.getmtime(raw_path) < os.path.getmtime(parsed_path)) and name+'\n' not in failed:
                 print(name, end=" ")
-                errc, data = parser.parse(pdb_path)
+                errc, data = parser.parse_cys(pdb_path)
                 if errc == 1:
                     print("parse failed")
                     f.write(name + '\n')
@@ -118,8 +120,7 @@ if args.organize or args.all:
         rich_ss_path = cwd + rich_ss_fp + pdb
         sparse_ss_path = cwd + sparse_ss_fp + pdb
         no_ss_path = cwd + no_ss_fp + pdb
-        if not args.silent:
-            print(name, end=" ")
+        print(name, end=" ")
         if not (pdb in (rich_ss + sparse_ss + no_ss) and os.path.getmtime(raw_path) < os.path.getmtime(parsed_path)):
             pdb_data = np.loadtxt(parsed_path, dtype=parser.csv_type, delimiter=',')
             ss = 0
@@ -146,23 +147,39 @@ if args.organize or args.all:
 if args.train or args.all:
     train.main()
 if args.e:
-    raw = np.genfromtxt(args.e[0], delimiter=',')
-    test.load(raw)
-"""    
-if args.e:
-    os.makedirs(os.path.dirname(cwd + raw_fp), exist_ok=True)
+    def test_file(argpath, NN_model, LR_model):
+        if argpath.endswith(pdb_ext):
+            name = argpath.split('/')[-1]
+            name = name.removesuffix(pdb_ext)
+            outpath = cwd + test_fp + name + result_ext
+            errc, data = parser.parse_all(argpath)
+            if errc != 0:
+                print(name, "parse failed")
+            else:
+                print(name, "parse succeeded")
+                results = test.load(data, NN_model, LR_model)
+                output = []
+                for i in range(len(data)):
+                    output.append([data[i]['res1'], data[i]['res2'], results[i]])
+                output.sort(key=lambda x: x[2], reverse=True)
+                with open(outpath, "w") as f:
+                    for i in output:
+                        f.write(f"res1: {i[0]:4d}\tres2: {i[1]:4d}\tpred: {i[2]:.4f}\n")
+        else:
+            print(name, "is not a pdb file")
+            
+    os.makedirs(os.path.dirname(cwd + test_fp), exist_ok=True)
+    NN_model = model.load_model("YBYF_Model_1")
+    LR_model = model.load_model("YBYF_Model_2")
     for arg in args.e:
-        if os.path.isdir(arg):
-            contents = os.listdir(arg)
+        argpath = os.path.abspath(arg)
+        if os.path.isdir(argpath):
+            contents = os.listdir(argpath)
             contents.sort()
             for f in contents:
-                if f.endswith(".pdb"):
-                    print(f, "is a pdb file")
-                else:
-                    print(f, "is not a pdb file")
+                test_file(argpath + '/' + f, NN_model, LR_model)
         else:
-            if arg.endswith(".pdb"):
-                print(arg, "is a pdb file")
+            if os.path.exists(argpath):
+                test_file(argpath, NN_model, LR_model)
             else:
-                print(arg, "is not a pdb file")
-"""
+                print(arg, "not found")
