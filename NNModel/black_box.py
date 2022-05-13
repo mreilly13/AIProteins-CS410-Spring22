@@ -225,7 +225,74 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     
     return [_history, results, _prediction_info, model]
 
-def run_model(model, data):
+def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, nodes=250):
+    if layers > 100:
+        print("\n\n\nWarning: Exceeding 100 layers is not recommended.\n\n\n")
+    
+    if nodes > 1000:
+        print("\n\n\nWarning: Exceeding 1000 nodes per layer is not recommended.\n\n\n")
+
+    if learning_rate > 0.01:
+        print("\n\n\nWarning: Large learning rate may have poor training results.\n\n\n")
+    
+    if epoch > 50:
+        print("\n\n\nWarning: large epoch size may result in long training time and overfitting.\n\n\n")
+
+    x_train = data[0]
+    x_validate = data[1]
+    x_test = data[2]
+
+    y_train = data[3]
+    y_validate = data[4]
+    y_test = data[5]
+
+    num_epochs = epoch
+    batch_size = 50
+    
+    eta = learning_rate
+    decay_factor = 0.95
+    size_hidden = nodes
+
+    size_input = 4 # number of features
+    size_output =  1 # number of labels
+    Input_shape = (size_input,)
+
+    _model = []
+    _model.append(keras.Input(shape=Input_shape, name='input_layer'))
+    _model.append(Dense(size_hidden, activation='ReLU', name='hidden_layer1'))
+    _model.append(BatchNormalization())
+    for i in range(2, layers+2):
+        _model.append(Dense(size_hidden, activation='ReLU', name=('hidden_layer' + str(i))))
+
+    _model.append(Dense(size_output, activation='softmax', name='output_layer'))
+
+    model = Sequential(_model)
+
+
+    learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
+    optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
+    loss_function = keras.losses.MeanAbsolutePercentageError
+
+    model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
+
+    _history = model.fit(x_train, y_train, batch_size=batch_size, epochs=num_epochs, validation_data=(x_validate, y_validate), verbose=2)
+
+    results = model.evaluate(x_test, y_test, batch_size)
+
+    predictions = model.predict(x_test)
+
+    return model
+
+def run_LRModel(model, data):
+    features = data[0]
+    labels = data[1]
+    predictions = model.predict(features)
+    
+    predictions = predictions.reshape(len(predictions), 1)
+    output = np.append(labels, predictions, axis = 1)
+    print(output)
+
+def run_NNModel(model, data):
     features = data[0]
     labels = data[1]
 
