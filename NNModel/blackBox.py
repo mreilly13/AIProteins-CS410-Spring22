@@ -301,6 +301,7 @@ def run_NNModel(model, data):
     y_predicted = _prediction_info[0]
 
     h, w = y_predicted.shape
+    print(y_predicted.shape, y_vectors.shape)
     special_interest = np.zeros((h, w - 1))
     for i in range(len(y_vectors)):
         if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
