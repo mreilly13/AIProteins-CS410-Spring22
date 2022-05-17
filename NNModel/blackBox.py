@@ -88,7 +88,7 @@ def load_ss_data():
     non_ss_labels = nnp.zeros((len(non_ss_features)))
 
 
-    noise = len(non_ss_features) * .20
+    noise = len(non_ss_features) * .10
     noise = int(noise)
 
     noise_features = non_ss_features[:noise, :]
@@ -300,7 +300,8 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
-    optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
+    optimizer = keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
+                # keras.optimizers.Adam(learning_rate=learning_rate_schedule)
     loss_function = keras.losses.categorical_crossentropy
 
     model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
