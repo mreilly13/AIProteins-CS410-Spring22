@@ -88,17 +88,17 @@ def load_ss_data():
     non_ss_labels = nnp.zeros((len(non_ss_features)))
 
 
-    noise = len(non_ss_features) * .10
+    noise = len(non_ss_features) * .05
     noise = int(noise)
 
     noise_features = non_ss_features[:noise, :]
     noise_labels = non_ss_labels[:noise]
     print(ss_features.shape, ss_labels.shape)
     print(noise_features.shape, noise_labels.shape)
-    print(features.shape, labels.shape)
 
     features = nnp.append(ss_features, noise_features, axis= 0)
     labels = nnp.append(ss_labels, noise_labels, axis= 0)
+    print(features.shape, labels.shape)
     
     #print(ss_labels.shape, ss_features.shape)
     return [features, labels]
@@ -300,7 +300,8 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
-    optimizer = keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
+    optimizer = keras.optimizers.Adamgrad(learning_rate=learning_rate_schedule) 
+                # keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
                 # keras.optimizers.Adam(learning_rate=learning_rate_schedule)
     loss_function = keras.losses.categorical_crossentropy
 
@@ -319,6 +320,11 @@ def run_LRModel(model, data):
     features = data[0]
     labels = data[1]
     predictions = model.predict(features)
+
+    for i in range(len(labels)):
+        if labels[i][0] == 1:
+            print(labels[i], predictions[i])
+            
     print(predictions)
     print(predictions.shape)
     # predictions = predictions.reshape(len(predictions), 1)
