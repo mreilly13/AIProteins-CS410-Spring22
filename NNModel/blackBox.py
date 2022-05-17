@@ -201,7 +201,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
     optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
                 #keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
-                #keras.optimizers.Adamgrad(learning_rate=learning_rate_schedule) 
+                #keras.optimizers.Adagrad(learning_rate=learning_rate_schedule) 
                 #keras.optimizers.SGD(learning_rate=learning_rate_schedule)
     
     loss_function = keras.losses.categorical_crossentropy
@@ -300,7 +300,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
-    optimizer = keras.optimizers.Adamgrad(learning_rate=learning_rate_schedule) 
+    optimizer = keras.optimizers.Adagrad(learning_rate=learning_rate_schedule) 
                 # keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
                 # keras.optimizers.Adam(learning_rate=learning_rate_schedule)
     loss_function = keras.losses.categorical_crossentropy
@@ -321,10 +321,16 @@ def run_LRModel(model, data):
     labels = data[1]
     predictions = model.predict(features)
 
+    print("known bonds")
     for i in range(len(labels)):
         if labels[i][0] == 1:
             print(labels[i], predictions[i])
-            
+    
+    print("possible bonds")
+    for i in range(len(labels)):
+        if labels[i][1] == 1:
+            print(labels[i], predictions[i])
+
     print(predictions)
     print(predictions.shape)
     # predictions = predictions.reshape(len(predictions), 1)
