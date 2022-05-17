@@ -163,10 +163,10 @@ if args.e:
                 support_ss = []
                 no_support_ss = []
                 for i in range(len(data)):
-                    if results[i][1] == 1.0:
-                        support_ss.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], results[i][2]])
+                    if results[i][1] >= .5:
+                        support_ss.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], results[i][1]])
                     else:
-                        no_support_ss.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], 1-results[i][2]])
+                        no_support_ss.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], results[i][0]])
                 support_ss.sort(key=lambda x: x[4], reverse=True)
                 no_support_ss.sort(key=lambda x: x[4], reverse=True)
                 with open(outpath, "w") as f:
