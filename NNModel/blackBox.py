@@ -92,7 +92,7 @@ def load_ss_data():
     noise = int(noise)
 
     noise_features = non_ss_features[:noise, :]
-    noise_labels = non_ss_labels[:noise, :]
+    noise_labels = non_ss_labels[:noise]
     features = np.append(ss_features, [noise_features], axis= 0)
     labels = np.append(ss_labels, [noise_labels], axis= 0)
     print(ss_features.shape, ss_labels.shape)
