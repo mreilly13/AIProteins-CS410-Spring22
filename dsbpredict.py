@@ -162,7 +162,7 @@ if args.e:
                 output = []
                 for i in range(len(data)):
                     print(i)
-                    output.append([data[i]['chain1'], data[i]['res1'], data[i]['chain2'], data[i]['res2'], results[i]])
+                    output.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], results[i]])
                 output.sort(key=lambda x: x[2], reverse=True)
                 with open(outpath, "w") as f:
                     for i in output:
