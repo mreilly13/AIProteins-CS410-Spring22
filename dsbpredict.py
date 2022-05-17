@@ -163,7 +163,7 @@ if args.e:
                 support_ss = []
                 no_support_ss = []
                 for i in range(len(data)):
-                    if results[i][1] == 1:
+                    if results[i][1] == 1.0:
                         support_ss.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], results[i][2]])
                     else:
                         no_support_ss.append([raw[i]['chain1'], raw[i]['res1'], raw[i]['chain2'], raw[i]['res2'], 1-results[i][2]])
