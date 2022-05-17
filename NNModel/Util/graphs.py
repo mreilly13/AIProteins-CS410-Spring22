@@ -11,7 +11,7 @@ import pandas as pd
 
 """
 
-graph_fp = "NNModel/util/graph_output/"
+graph_fp = "NNModel/util/graphOutput/"
 
 def parameter_tuning(v_loss, t_loss, title):
 
