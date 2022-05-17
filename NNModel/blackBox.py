@@ -46,8 +46,8 @@ def load_data():
     features[:, 2] = features[:, 2] / np.pi
     features[:, 3] = features[:, 3] / np.pi
     
-    print(features.shape, labels.shape)
     labels = np.copy(data[:, 4])
+    print(features.shape, labels.shape)
     return [features.get(), labels.get()]
 
 # meant to be used when testing a loaded model.
