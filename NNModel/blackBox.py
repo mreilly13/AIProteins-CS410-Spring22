@@ -265,7 +265,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
     y_test = data[5]
 
     num_epochs = epoch
-    batch_size = 50
+    batch_size = 250
     
     eta = learning_rate
     decay_factor = 0.95
@@ -318,8 +318,9 @@ def run_LRModel(model, data):
     features = data[0]
     labels = data[1]
     predictions = model.predict(features)
-    #print(predictions)
-    predictions = predictions.reshape(len(predictions), 1)
+    print(predictions)
+    print(predictions.shape)
+    # predictions = predictions.reshape(len(predictions), 1)
     output = np.append(labels, predictions, axis = 1)
     #print(output)
     return output
