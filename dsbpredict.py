@@ -157,6 +157,7 @@ if args.e:
                 print(name, "parse failed")
             else:
                 print(name, "parse succeeded")
+                print(data.shape)
                 results = test.load(data, NN_model, LR_model)
                 output = []
                 for i in range(len(data)):
