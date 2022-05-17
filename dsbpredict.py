@@ -174,11 +174,11 @@ if args.e:
                     f.write("\nResidue pairs that may support disulfides\n")
                     f.write("res 1\tres 2\tconfidence\n\n")
                     for i in support_ss:
-                        f.write(f"{i[0]} {i[1]:4d}\t{i[2]}{i[3]:4d}\t{i[4]:.4f}\n")
+                        f.write(f"{i[0]} {i[1]:4d}\t{i[2]} {i[3]:4d}\t{i[4]:.4f}\n")
                     f.write("\nResidue pairs that may not support disulfides\n")
                     f.write("res 1\tres 2\tconfidence\n\n")
                     for i in no_support_ss:
-                        f.write(f"{i[0]} {i[1]:4d}\t{i[2]}{i[3]:4d}\t{i[4]:.4f}\n")
+                        f.write(f"{i[0]} {i[1]:4d}\t{i[2]} {i[3]:4d}\t{i[4]:.4f}\n")
         else:
             print(name, "is not a pdb file")
             
