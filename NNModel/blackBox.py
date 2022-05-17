@@ -79,10 +79,10 @@ def load_ss_data():
     for i in range(len(features)):
         if labels[i] == 1:
             ss_features.append(features[i])
-    
+    ss_features = nnp.array(ss_features)
     ss_labels = nnp.ones((len(ss_features)))
     print(ss_labels.shape, ss_features.shape)
-    return [np.array(ss_features), ss_labels]
+    return [ss_features, ss_labels]
 
 
 
