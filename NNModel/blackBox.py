@@ -294,7 +294,7 @@ def run_LRModel(model, data):
 def run_NNModel(model, data):
     features = data[0]
     labels = data[1]
-
+    print(labels)
     y_vectors = utils.to_categorical(labels)
     predictions = model.predict(features)
     _prediction_info = _compare_results(predictions, y_vectors)
