@@ -157,7 +157,7 @@ if args.e:
                 print(name, "parse failed")
             else:
                 print(name, "parse succeeded")
-                data = np.asarray(data)
+                data = np.array([np.asarray(i) for i in data])
                 print(data)
                 print(data.shape)
                 results = test.load(data, NN_model, LR_model)
