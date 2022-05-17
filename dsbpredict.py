@@ -5,20 +5,20 @@ import os
 import argparse
 import gzip
 import shutil
-import Parser.parse_pdb as parser
+import Parser.parsePDB as parser
 import NNModel.init as train
-import NNModel.launch_model as test
-import NNModel.black_box as model
+import NNModel.launchModel as test
+import NNModel.blackBox as model
 
 # directories
 cwd = os.getcwd()
 raw_fp = "/Data/Raw/"
 pdb_fp = "/Data/PDB/"
 parsed_fp = "/Data/Parsed/"
-rich_ss_fp = "/Data/Rich_SS/"
-sparse_ss_fp = "/Data/Sparse_SS/"
-no_ss_fp = "/Data/No_SS/"
-test_fp = "/Tested/"
+rich_ss_fp = "/Data/RichSS/"
+sparse_ss_fp = "/Data/SparseSS/"
+no_ss_fp = "/Data/NoSS/"
+test_fp = "/Out/"
 zip_ext = ".ent.gz"
 pdb_ext = ".pdb"
 parse_ext = ".csv"
@@ -89,7 +89,7 @@ if args.parse or args.all:
             parsed_path = cwd + parsed_fp + fullname
             if not (fullname in parsed and os.path.getmtime(raw_path) < os.path.getmtime(parsed_path)) and name+'\n' not in failed:
                 print(name, end=" ")
-                errc, data = parser.parse_cys(pdb_path)
+                errc, data = parser.parse(pdb_path)
                 if errc == 1:
                     print("parse failed")
                     f.write(name + '\n')
@@ -152,7 +152,7 @@ if args.e:
             name = argpath.split('/')[-1]
             name = name.removesuffix(pdb_ext)
             outpath = cwd + test_fp + name + result_ext
-            errc, data = parser.parse_all(argpath)
+            errc, data = parser.parse(argpath, True)
             if errc != 0:
                 print(name, "parse failed")
             else:
@@ -160,11 +160,11 @@ if args.e:
                 results = test.load(data, NN_model, LR_model)
                 output = []
                 for i in range(len(data)):
-                    output.append([data[i]['res1'], data[i]['res2'], results[i]])
+                    output.append([data[i]['chain1'], data[i]['res1'], data[i]['chain2'], data[i]['res2'], results[i]])
                 output.sort(key=lambda x: x[2], reverse=True)
                 with open(outpath, "w") as f:
                     for i in output:
-                        f.write(f"res1: {i[0]:4d}\tres2: {i[1]:4d}\tpred: {i[2]:.4f}\n")
+                        f.write(f"res1: {i[0]}{i[1]:4d}\tres2: {i[2]}{i[3]:4d}\tpred: {i[4]:.4f}\n")
         else:
             print(name, "is not a pdb file")
             

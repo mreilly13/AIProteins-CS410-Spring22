@@ -8,7 +8,7 @@ from tensorflow import keras
 from tensorflow.keras import utils
 from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
-from NNModel.util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
+from NNModel.Util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
 
 #from sqlite3 import adapt
 
@@ -24,7 +24,7 @@ def load_data():
     #data = np.genfromtxt("tmp/data.csv", delimiter=",")
 
     cwd = os.getcwd()
-    rich_ss_fp = "/Data/Rich_SS/"
+    rich_ss_fp = "/Data/RichSS/"
     rich_ss = os.listdir(cwd + rich_ss_fp)
     rich_ss.sort()
     

@@ -1,6 +1,6 @@
-from NNModel.black_box import neural_network, regression_neural_network, load_data, save_model, load_model, run_model, _test_load_data, load_ss_data
-from NNModel.util.helper import dataset_split, feature_scaling
-import NNModel.util.graphs as graphs
+from NNModel.blackBox import neural_network, regression_neural_network, load_data, save_model, load_model, run_LRModel, run_NNModel, _test_load_data, load_ss_data
+from NNModel.Util.helper import dataset_split, feature_scaling
+import NNModel.Util.graphs as graphs
 
 
 """

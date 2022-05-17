@@ -1,5 +1,5 @@
-from NNModel.black_box import load_data, load_single_data, load_ss_data, load_model, run_NNModel, run_LRModel
-import NNModel.util.graphs as graphs
+from NNModel.blackBox import load_data, load_single_data, load_ss_data, load_model, run_NNModel, run_LRModel
+import NNModel.Util.graphs as graphs
 
 
 def load(data, NN_model, LR_model):
