@@ -147,7 +147,7 @@ if args.organize or args.all:
 if args.train or args.all:
     train.main()
 if args.e:
-    def test_file(argpath, NN_model, LR_model):
+    def test_file(argpath):
         if argpath.endswith(pdb_ext):
             name = argpath.split('/')[-1]
             name = name.removesuffix(pdb_ext)
@@ -158,7 +158,7 @@ if args.e:
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond']] for i in raw])
-                results = test.load(data, NN_model, LR_model)
+                results = test.load(data)
                 output = []
                 for i in range(len(data)):
                     output.append([data[i]['chain1'], data[i]['res1'], data[i]['chain2'], data[i]['res2'], results[i]])
@@ -170,17 +170,15 @@ if args.e:
             print(name, "is not a pdb file")
             
     os.makedirs(os.path.dirname(cwd + test_fp), exist_ok=True)
-    NN_model = model.load_model("YBYF_Model_1")
-    LR_model = model.load_model("YBYF_Model_2")
     for arg in args.e:
         argpath = os.path.abspath(arg)
         if os.path.isdir(argpath):
             contents = os.listdir(argpath)
             contents.sort()
             for f in contents:
-                test_file(argpath + '/' + f, NN_model, LR_model)
+                test_file(argpath + '/' + f)
         else:
             if os.path.exists(argpath):
-                test_file(argpath, NN_model, LR_model)
+                test_file(argpath)
             else:
                 print(arg, "not found")
