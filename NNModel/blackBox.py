@@ -291,8 +291,8 @@ def run_LRModel(model, data):
     output = np.append(labels, predictions, axis = 1)
     #print(output)
     out = [i[0] for i in predictions]
-    print(out)
-    return [i[0] for i in predictions]
+    #print(out)
+    return out
 
 def run_NNModel(model, data):
     features = data[0]
