@@ -15,13 +15,13 @@ def main():
 
     # load and split data
     # dataset = _test_load_data()
-    dataset = load_data()
+    #dataset = load_data()
     ss_dataset = load_ss_data()
 
-    feature_scaled_dataset = feature_scaling(dataset) # normalize the data with feature scaling formula
+    #feature_scaled_dataset = feature_scaling(dataset) # normalize the data with feature scaling formula
     feature_scaled_ss_dataset = feature_scaling(ss_dataset) # normalize the data with feature scaling formula
 
-    split_data = dataset_split(feature_scaled_dataset[0], feature_scaled_dataset[1])
+    #split_data = dataset_split(feature_scaled_dataset[0], feature_scaled_dataset[1])
     split_ss_data = dataset_split(feature_scaled_ss_dataset[0], feature_scaled_ss_dataset[1])
 
     """
@@ -31,10 +31,10 @@ def main():
 
 
     # 0
-    YBYF_M1 = neural_network(split_data, True, learning_rate=0.00001)
-    save_model(YBYF_M1[3], "YBYF_Model_1")
+    #YBYF_M1 = neural_network(split_data, True, learning_rate=0.00001)
+    #save_model(YBYF_M1[3], "YBYF_Model_1")
 
-    YBYF_M2 = regression_neural_network(split_ss_data)
+    YBYF_M2 = regression_neural_network(split_ss_data, epoch=3, layers=3, nodes=100)
     save_model(YBYF_M2, "YBYF_Model_2")
 
 

@@ -74,15 +74,33 @@ def load_ss_data():
     labels = data[1]
 
     ss_features = []
+    non_ss_features = []
 
 
     for i in range(len(features)):
         if labels[i] == 1:
             ss_features.append(features[i])
+        else:
+            non_ss_features.append(features[i])
     ss_features = nnp.array(ss_features)
     ss_labels = nnp.ones((len(ss_features)))
+    non_ss_features = nnp.array(non_ss_features)
+    non_ss_labels = nnp.zeros((len(non_ss_features)))
+
+
+    noise = len(non_ss_features) * .20
+    noise = int(noise)
+
+    noise_features = non_ss_features[:noise, :]
+    noise_labels = non_ss_labels[:noise, :]
+    features = np.append(ss_features, [noise_features], axis= 0)
+    labels = np.append(ss_labels, [noise_labels], axis= 0)
+    print(ss_features.shape, ss_labels.shape)
+    print(noise_features.shape, noise_labels.shape)
+    print(features.shape, labels.shape)
+    
     #print(ss_labels.shape, ss_features.shape)
-    return [ss_features, ss_labels]
+    return [features, labels]
 
 
 
@@ -253,7 +271,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
     size_hidden = nodes
 
     size_input = 4 # number of features
-    size_output =  1 # number of labels
+    size_output =  2 # number of labels
     Input_shape = (size_input,)
 
     _model = []
@@ -270,7 +288,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
     optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
-    loss_function = keras.losses.MeanAbsolutePercentageError()
+    loss_function = keras.losses.categorical_crossentropy
 
     model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
 
@@ -279,6 +297,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
     results = model.evaluate(x_test, y_test, batch_size)
 
     predictions = model.predict(x_test)
+    print(predictions)
 
     return model
 
