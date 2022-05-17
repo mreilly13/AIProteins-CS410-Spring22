@@ -12,7 +12,7 @@ def load(data):
     # graphs.plotData(large_dataset[0])
     print("LOADING IN REGRESSION MODEL")
     LR_model = load_model("YBYF_Model_2")
-    run_LRModel(LR_model, regression_preped_dataset)
+    return run_LRModel(LR_model, regression_preped_dataset)
 
 if __name__=="__main__":
     load()

@@ -286,10 +286,11 @@ def run_LRModel(model, data):
     features = data[0]
     labels = data[1]
     predictions = model.predict(features)
-    print(predictions)
+    #print(predictions)
     predictions = predictions.reshape(len(predictions), 1)
     output = np.append(labels, predictions, axis = 1)
-    print(output)
+    #print(output)
+    return [i[0] for i in predictions]
 
 def run_NNModel(model, data):
     features = data[0]
