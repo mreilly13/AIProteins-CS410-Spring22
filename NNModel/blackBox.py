@@ -88,7 +88,7 @@ def load_ss_data():
     non_ss_labels = nnp.zeros((len(non_ss_features)))
 
 
-    noise = len(non_ss_features) * .25
+    noise = len(non_ss_features) * .10
     noise = int(noise)
 
     noise_features = non_ss_features[:noise, :]
