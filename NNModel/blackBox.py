@@ -55,7 +55,7 @@ def load_single_data(_data):
     """ load individual file data """
 
     data = _data
-    features = nnp.copy(data[:, 0:4]).astype(int)
+    features = nnp.copy(data[:, 0:4]).astype(nnp.float32)
     
     # preprocessing
     features[:, 0] = features[:, 0] / 20.0
