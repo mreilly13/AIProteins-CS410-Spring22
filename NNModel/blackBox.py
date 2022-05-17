@@ -286,6 +286,18 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
     model = Sequential(_model)
 
+    # Model information
+    model.summary()
+
+
+    y_train_vectors = keras.utils.to_categorical(y_train)
+    y_test_vectors = keras.utils.to_categorical(y_test)
+    y_validate_vectors = keras.utils.to_categorical(y_validate)
+
+    y_train_vectors = fix_vectors(y_train_vectors)
+    y_test_vectors = fix_vectors(y_test_vectors)
+    y_validate_vectors = fix_vectors(y_validate_vectors)
+
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
     optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
@@ -293,9 +305,9 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
     model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
 
-    _history = model.fit(x_train, y_train, batch_size=batch_size, epochs=num_epochs, validation_data=(x_validate, y_validate), verbose=2)
+    _history = model.fit(x_train, y_train_vectors, batch_size=batch_size, epochs=num_epochs, validation_data=(x_validate, y_validate_vectors), verbose=2)
 
-    results = model.evaluate(x_test, y_test, batch_size)
+    results = model.evaluate(x_test, y_test_vectors, batch_size)
 
     predictions = model.predict(x_test)
     print(predictions)
