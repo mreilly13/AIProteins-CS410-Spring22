@@ -366,7 +366,7 @@ def run_NNModel_Legacy(model, data):
 def run_NNModel(model, data):
     features = data[0]
     labels_raw = data[1]
-    labels = labels_raw[:, 0].astype(int)
+    labels = labels_raw[:, 0].astype(nnp.float32)
     #print(labels)
     y_vectors = utils.to_categorical(labels)
     y_vectors = fix_vectors(y_vectors)
