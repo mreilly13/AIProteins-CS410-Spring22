@@ -309,6 +309,7 @@ def run_NNModel(model, data):
 
     labels = labels.reshape(len(labels), 1)
     newLabels = np.append(labels, special_interest, axis = 1)
+    print(newLabels)
     return [features, newLabels]
 
 def save_model(model, fileName):

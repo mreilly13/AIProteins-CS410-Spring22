@@ -147,25 +147,17 @@ if args.organize or args.all:
 if args.train or args.all:
     train.main()
 if args.e:
-    def convert(data):
-        new_data = []
-        for i in data:
-            new_data.append([i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond']])
-        return np.array(new_data)
-    
     def test_file(argpath, NN_model, LR_model):
         if argpath.endswith(pdb_ext):
             name = argpath.split('/')[-1]
             name = name.removesuffix(pdb_ext)
             outpath = cwd + test_fp + name + result_ext
-            errc, data = parser.parse(argpath, True)
+            errc, raw = parser.parse(argpath, True)
             if errc != 0:
                 print(name, "parse failed")
             else:
                 print(name, "parse succeeded")
-                data = convert(data)
-                print(data)
-                print(data.shape)
+                data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond']] for i in raw])
                 results = test.load(data, NN_model, LR_model)
                 output = []
                 for i in range(len(data)):
