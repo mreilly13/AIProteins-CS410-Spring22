@@ -31,7 +31,7 @@ def main():
 
 
     # 0
-    YBYF_M1 = neural_network(split_ss_data, True, learning_rate=0.00001)
+    YBYF_M1 = neural_network(split_ss_data, True, learning_rate=0.000001)
     save_model(YBYF_M1[3], "YBYF_Model_1")
 
     #YBYF_M2 = regression_neural_network(split_ss_data, epoch=25, layers=25, nodes=250)
