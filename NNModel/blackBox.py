@@ -300,7 +300,8 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
-    optimizer = keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
+    optimizer = keras.optimizers.SGD(learning_rate=learning_rate_schedule)
+                # keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
                 # keras.optimizers.Adam(learning_rate=learning_rate_schedule)
     loss_function = keras.losses.categorical_crossentropy
 
@@ -337,7 +338,7 @@ def run_LRModel(model, data):
     #print(output)
     return output
 
-def run_NNModel(model, data):
+def run_NNModel_Legacy(model, data):
     features = data[0]
     labels = data[1]
     #print(labels)
@@ -357,6 +358,31 @@ def run_NNModel(model, data):
 
     labels = labels.reshape(len(labels), 1)
     newLabels = np.append(labels, special_interest, axis = 1)
+    #print(newLabels)
+    return [features, newLabels]
+
+def run_NNModel(model, data):
+    features = data[0]
+    labels = data[1]
+    #print(labels)
+    y_vectors = utils.to_categorical(labels)
+    y_vectors = fix_vectors(y_vectors)
+    predictions = model.predict(features)
+    _prediction_info = _compare_results(predictions, y_vectors)
+    y_predicted = _prediction_info[4]
+    y_processed_predicted = _prediction_info[0]
+    return np.append(y_predicted, y_processed_predicte, axis = 1)
+
+    #h, w = y_predicted.shape
+    #print(y_predicted.shape, y_vectors.shape)
+    #special_interest = np.zeros((h, w - 1))
+    #for i in range(len(y_vectors)):
+    #    if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
+    #        if y_vectors[i][0] == 1 and y_vectors[i][1] == 0 and y_predicted[i][0] == 0 and y_predicted[i][1] == 1:
+    #            special_interest[i] = 1
+
+    #labels = labels.reshape(len(labels), 1)
+    #newLabels = np.append(labels, special_interest, axis = 1)
     #print(newLabels)
     return [features, newLabels]
 
