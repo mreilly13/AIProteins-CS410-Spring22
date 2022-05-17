@@ -159,6 +159,7 @@ if args.e:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond']] for i in raw])
                 results = test.load(data)
+                print(name, "evaluated")
                 support_ss = []
                 no_support_ss = []
                 for i in range(len(data)):
@@ -169,14 +170,14 @@ if args.e:
                 support_ss.sort(key=lambda x: x[4], reverse=True)
                 no_support_ss.sort(key=lambda x: x[4], reverse=True)
                 with open(outpath, "w") as f:
-                    f.write("Cysteine pairs that may support disulfides")
-                    f.write("res 1  |\tres 2  |\tconfidence")
+                    f.write("Cysteine pairs that may support disulfides\n")
+                    f.write("res 1 |\tres 2 |\tconfidence")
                     for i in support_ss:
-                        f.write(f"{i[0]} {i[1]:4d} |\t{i[2]}{i[3]:4d} |\t{i[4]:.4f}\n")
-                    f.write("\nCysteine pairs that may support disulfides")
-                    f.write("res 1  |\tres 2  |\tconfidence")
+                        f.write(f"{i[0]} {i[1]:4d}|\t{i[2]}{i[3]:4d}|\t{i[4]:.4f}\n")
+                    f.write("\nCysteine pairs that may support disulfides\n")
+                    f.write("res 1 |\tres 2 |\tconfidence")
                     for i in no_support_ss:
-                        f.write(f"{i[0]} {i[1]:4d} |\t{i[2]}{i[3]:4d} |\t{i[4]:.4f}\n")
+                        f.write(f"{i[0]} {i[1]:4d}|\t{i[2]}{i[3]:4d}|\t{i[4]:.4f}\n")
         else:
             print(name, "is not a pdb file")
             
