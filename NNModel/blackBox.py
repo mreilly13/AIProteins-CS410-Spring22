@@ -82,7 +82,7 @@ def load_ss_data():
     
     ss_labels = nnp.ones((len(ss_features)))
     print(ss_labels.shape, ss_features.shape)
-    return [ss_features, ss_labels]
+    return [np.array(ss_features), ss_labels]
 
 
 
