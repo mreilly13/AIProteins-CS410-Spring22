@@ -157,7 +157,7 @@ if args.e:
                 print(name, "parse failed")
             else:
                 print(name, "parse succeeded")
-                data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond']] for i in raw])
+                data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
                 results = test.load(data)
                 print(name, "evaluated")
                 support_ss = []
