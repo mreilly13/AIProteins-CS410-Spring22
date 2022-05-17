@@ -296,6 +296,7 @@ def run_NNModel(model, data):
     labels = data[1]
     print(labels)
     y_vectors = utils.to_categorical(labels)
+    y_vectors = fix_vectors(y_vectors)
     predictions = model.predict(features)
     _prediction_info = _compare_results(predictions, y_vectors)
     y_predicted = _prediction_info[0]
