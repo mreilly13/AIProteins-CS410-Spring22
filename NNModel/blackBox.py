@@ -46,9 +46,8 @@ def load_data():
     features[:, 2] = features[:, 2] / np.pi
     features[:, 3] = features[:, 3] / np.pi
     
-
+    print(features.shape, labels.shape)
     labels = np.copy(data[:, 4])
-
     return [features.get(), labels.get()]
 
 # meant to be used when testing a loaded model.
@@ -82,7 +81,7 @@ def load_ss_data():
             ss_features.append(features[i])
     
     ss_labels = nnp.ones((len(ss_features)))
-
+    print(ss_labels.shape, ss_features.shape)
     return [ss_features, ss_labels]
 
 
@@ -271,7 +270,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
     optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
-    loss_function = keras.losses.MeanAbsolutePercentageError
+    loss_function = keras.losses.MeanAbsolutePercentageError()
 
     model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
 
