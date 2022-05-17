@@ -97,8 +97,8 @@ def load_ss_data():
     print(noise_features.shape, noise_labels.shape)
     print(features.shape, labels.shape)
 
-    features = nnp.append(ss_features, [noise_features], axis= 0)
-    labels = nnp.append(ss_labels, [noise_labels], axis= 0)
+    features = nnp.append(ss_features, noise_features, axis= 0)
+    labels = nnp.append(ss_labels, noise_labels, axis= 0)
     
     #print(ss_labels.shape, ss_features.shape)
     return [features, labels]
