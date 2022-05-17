@@ -147,6 +147,12 @@ if args.organize or args.all:
 if args.train or args.all:
     train.main()
 if args.e:
+    def convert(data):
+        new_data = []
+        for i in data:
+            new_data.append([i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond']])
+        return np.array(new_data)
+    
     def test_file(argpath, NN_model, LR_model):
         if argpath.endswith(pdb_ext):
             name = argpath.split('/')[-1]
@@ -157,7 +163,7 @@ if args.e:
                 print(name, "parse failed")
             else:
                 print(name, "parse succeeded")
-                data = np.array([np.asarray(i) for i in data])
+                data = convert(data)
                 print(data)
                 print(data.shape)
                 results = test.load(data, NN_model, LR_model)
