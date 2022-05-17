@@ -374,7 +374,7 @@ def run_NNModel(model, data):
     _prediction_info = _compare_results(predictions, y_vectors)
     y_predicted = _prediction_info[4]
     y_processed_predicted = _prediction_info[0]
-    return np.append(y_predicted, labels_raw, axis = 1)
+    return nnp.append(y_predicted, labels_raw, axis = 1)
 
     #h, w = y_predicted.shape
     #print(y_predicted.shape, y_vectors.shape)
