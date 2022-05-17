@@ -88,7 +88,7 @@ def load_ss_data():
     non_ss_labels = nnp.zeros((len(non_ss_features)))
 
 
-    noise = len(non_ss_features) * .33
+    noise = len(non_ss_features) * .25
     noise = int(noise)
 
     noise_features = non_ss_features[:noise, :]
@@ -265,7 +265,7 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
     y_test = data[5]
 
     num_epochs = epoch
-    batch_size = 750
+    batch_size = 25
     
     eta = learning_rate
     decay_factor = 0.95
