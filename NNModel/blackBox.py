@@ -47,7 +47,7 @@ def load_data():
     features[:, 3] = features[:, 3] / np.pi
     
     labels = np.copy(data[:, 4])
-    print(features.shape, labels.shape)
+    #print(features.shape, labels.shape)
     return [features.get(), labels.get()]
 
 # meant to be used when testing a loaded model.
@@ -81,7 +81,7 @@ def load_ss_data():
             ss_features.append(features[i])
     ss_features = nnp.array(ss_features)
     ss_labels = nnp.ones((len(ss_features)))
-    print(ss_labels.shape, ss_features.shape)
+    #print(ss_labels.shape, ss_features.shape)
     return [ss_features, ss_labels]
 
 
@@ -101,7 +101,7 @@ def _test_load_data():
 
     labels = np.copy(data[:, 4])
 
-    print(features.shape, labels.shape)
+    #print(features.shape, labels.shape)
 
     return [features.get(), labels.get()]
 
@@ -286,7 +286,7 @@ def run_LRModel(model, data):
     features = data[0]
     labels = data[1]
     predictions = model.predict(features)
-    
+    print(predictions)
     predictions = predictions.reshape(len(predictions), 1)
     output = np.append(labels, predictions, axis = 1)
     print(output)
@@ -294,7 +294,7 @@ def run_LRModel(model, data):
 def run_NNModel(model, data):
     features = data[0]
     labels = data[1]
-    print(labels)
+    #print(labels)
     y_vectors = utils.to_categorical(labels)
     y_vectors = fix_vectors(y_vectors)
     predictions = model.predict(features)
@@ -302,7 +302,7 @@ def run_NNModel(model, data):
     y_predicted = _prediction_info[0]
 
     h, w = y_predicted.shape
-    print(y_predicted.shape, y_vectors.shape)
+    #print(y_predicted.shape, y_vectors.shape)
     special_interest = np.zeros((h, w - 1))
     for i in range(len(y_vectors)):
         if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
@@ -311,7 +311,7 @@ def run_NNModel(model, data):
 
     labels = labels.reshape(len(labels), 1)
     newLabels = np.append(labels, special_interest, axis = 1)
-    print(newLabels)
+    #print(newLabels)
     return [features, newLabels]
 
 def save_model(model, fileName):
