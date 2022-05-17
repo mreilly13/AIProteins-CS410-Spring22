@@ -64,7 +64,7 @@ def load_single_data(_data):
     features[:, 3] = features[:, 3] / nnp.pi
     
 
-    labels = nnp.copy(data[:, 4])
+    labels = nnp.copy(data[:, 4:])
 
     return [features, labels]
 
@@ -365,7 +365,8 @@ def run_NNModel_Legacy(model, data):
 
 def run_NNModel(model, data):
     features = data[0]
-    labels = data[1]
+    labels_raw = data[1]
+    labels = labels_raw[:, 0]
     #print(labels)
     y_vectors = utils.to_categorical(labels)
     y_vectors = fix_vectors(y_vectors)
@@ -373,7 +374,7 @@ def run_NNModel(model, data):
     _prediction_info = _compare_results(predictions, y_vectors)
     y_predicted = _prediction_info[4]
     y_processed_predicted = _prediction_info[0]
-    return np.append(y_predicted, y_processed_predicted, axis = 1)
+    return np.append(y_predicted, labels_raw, axis = 1)
 
     #h, w = y_predicted.shape
     #print(y_predicted.shape, y_vectors.shape)
