@@ -55,7 +55,7 @@ def load_single_data(_data):
     """ load individual file data """
 
     data = _data
-    features = nnp.copy(data[:, 0:4])
+    features = nnp.copy(data[:, 0:4]).astype(int)
     
     # preprocessing
     features[:, 0] = features[:, 0] / 20.0
@@ -366,7 +366,7 @@ def run_NNModel_Legacy(model, data):
 def run_NNModel(model, data):
     features = data[0]
     labels_raw = data[1]
-    labels = labels_raw[:, 0]
+    labels = labels_raw[:, 0].astype(int)
     #print(labels)
     y_vectors = utils.to_categorical(labels)
     y_vectors = fix_vectors(y_vectors)
