@@ -12,8 +12,7 @@ import os
 
 """
 
-graph_fp = "NNModel/GraphOutput/"
-os.makedirs(os.path.dirname(os.getcwd() + graph_fp), exist_ok=True)
+graph_fp = "/NNModel/GraphOutput/"
 
 def parameter_tuning(v_loss, t_loss, title):
 
@@ -25,7 +24,9 @@ def parameter_tuning(v_loss, t_loss, title):
     plt.ylabel("Loss")
     plt.legend(loc="upper right")
     #plt.show()
-    plt.savefig(graph_fp + "parameterTuning.png")
+    cwd = os.getcwd()
+    os.makedirs(os.path.dirname(cwd + graph_fp), exist_ok=True) 
+    plt.savefig(cwd + graph_fp + "parameterTuning.png")
     plt.close()
 
 def learning_curve(learn_info): # for batch learning
@@ -36,7 +37,9 @@ def learning_curve(learn_info): # for batch learning
     plt.ylabel("Cost")
     plt.legend(["train", "loss"], loc="upper left")
     #plt.show()
-    plt.savefig(graph_fp + "learningCurve.png")
+    cwd = os.getcwd()
+    os.makedirs(os.path.dirname(cwd + graph_fp), exist_ok=True)
+    plt.savefig(cwd + graph_fp + "learningCurve.png")
     plt.close()
 
 def confusion_matrix(prediction_info):
@@ -60,7 +63,9 @@ def confusion_matrix(prediction_info):
 
     # Display the visualization of the Confusion Matrix.
     #plt.show()
-    plt.savefig(graph_fp + "confusionMatrix.png")
+    cwd = os.getcwd()
+    os.makedirs(os.path.dirname(cwd + graph_fp), exist_ok=True)
+    plt.savefig(cwd + graph_fp + "confusionMatrix.png")
     plt.close()
 
 def multi_roc_graph(prediction_info1, prediction_info2, extra=""):
@@ -93,7 +98,9 @@ def multi_roc_graph(prediction_info1, prediction_info2, extra=""):
     plt.ylabel("True Positive Rate")
     plt.legend(loc="lower right")
     # plt.show()
-    plt.savefig(graph_fp + "multiROC.png")
+    cwd = os.getcwd()
+    os.makedirs(os.path.dirname(cwd + graph_fp), exist_ok=True)
+    plt.savefig(cwd + graph_fp + "multiROC.png")
     plt.close()
 
 def roc_graph(prediction_info, extra=""):
@@ -114,10 +121,14 @@ def roc_graph(prediction_info, extra=""):
     plt.ylabel("True Positive Rate")
     plt.legend(loc="lower right")
     #plt.show()
-    plt.savefig(graph_fp + "ROC.png")
+    cwd = os.getcwd()
+    os.makedirs(os.path.dirname(cwd + graph_fp), exist_ok=True)
+    plt.savefig(cwd + graph_fp + "ROC.png")
     plt.close()
 
 def plotData(data):
     pdb_chart = pd.DataFrame(data, columns=['dist', 'omega', 'theta', 'phi'])
     seaborn.pairplot(pdb_chart)
-    plt.savefig(graph_fp + "linearGraphing.png")
+    cwd = os.getcwd()
+    os.makedirs(os.path.dirname(cwd + graph_fp), exist_ok=True)
+    plt.savefig(cwd + graph_fp + "linearGraphing.png")
