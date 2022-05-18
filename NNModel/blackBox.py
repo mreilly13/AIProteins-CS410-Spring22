@@ -1,7 +1,7 @@
 from calendar import c
 import os
 import numpy as nnp
-import cupy as np
+#import cupy as np
 import tensorflow as tf
 from numpy import loadtxt
 from tensorflow import keras
@@ -28,27 +28,37 @@ def load_data():
     rich_ss = os.listdir(cwd + rich_ss_fp)
     rich_ss.sort()
     
-    data = np.zeros((1, 9))
+    #data = np.zeros((1, 9))
+    data = nnp.zeros((1, 9))
 
     for i in rich_ss:
-        pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
+        #pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
+        pdb_data = nnp.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
         if pdb_data.shape == (9,):
-            pdb_data = np.array([pdb_data])
-        data = np.append(data,pdb_data,axis=0)
+            #pdb_data = np.array([pdb_data])
+            pdb_data = nnp.array([pdb_data])
+        #data = np.append(data,pdb_data,axis=0)
+        data = nnp.append(data,pdb_data,axis=0)
     
     data = data[1:]
 
-    features = np.copy(data[:, 0:4])
+    #features = np.copy(data[:, 0:4])
+    features = nnp.copy(data[:, 0:4])
     
     # preprocessing
     features[:, 0] = features[:, 0] / 20.0
-    features[:, 1] = features[:, 1] / np.pi
-    features[:, 2] = features[:, 2] / np.pi
-    features[:, 3] = features[:, 3] / np.pi
+    # features[:, 1] = features[:, 1] / np.pi
+    # features[:, 2] = features[:, 2] / np.pi
+    # features[:, 3] = features[:, 3] / np.pi
+    features[:, 1] = features[:, 1] / nnp.pi
+    features[:, 2] = features[:, 2] / nnp.pi
+    features[:, 3] = features[:, 3] / nnp.pi
     
-    labels = np.copy(data[:, 4])
+    # labels = np.copy(data[:, 4])
+    labels = nnp.copy(data[:, 4])
     #print(features.shape, labels.shape)
-    return [features.get(), labels.get()]
+    #return [features.get(), labels.get()]
+    return [features, labels]
 
 # meant to be used when testing a loaded model.
 def load_single_data(_data):
@@ -108,21 +118,28 @@ def load_ss_data():
 def _test_load_data():
     """ use this only for internal testing """
 
-    data = np.genfromtxt("tmp/data.csv", delimiter=",")
-    features = np.copy(data[:, 0:4])
+    # data = np.genfromtxt("tmp/data.csv", delimiter=",")
+    # features = np.copy(data[:, 0:4])
+    data = nnp.genfromtxt("tmp/data.csv", delimiter=",")
+    features = nnp.copy(data[:, 0:4])
     
     # preprocessing
     features[:, 0] = features[:, 0] / 20.0
-    features[:, 1] = features[:, 1] / np.pi
-    features[:, 2] = features[:, 2] / np.pi
-    features[:, 3] = features[:, 3] / np.pi
+    # features[:, 1] = features[:, 1] / np.pi
+    # features[:, 2] = features[:, 2] / np.pi
+    # features[:, 3] = features[:, 3] / np.pi
+    features[:, 1] = features[:, 1] / nnp.pi
+    features[:, 2] = features[:, 2] / nnp.pi
+    features[:, 3] = features[:, 3] / nnp.pi
     
 
-    labels = np.copy(data[:, 4])
+    # labels = np.copy(data[:, 4])
+    labels = nnp.copy(data[:, 4])
 
     #print(features.shape, labels.shape)
 
-    return [features.get(), labels.get()]
+    # return [features.get(), labels.get()]
+    return [features, labels]
 
 """
 TODO:
@@ -341,7 +358,8 @@ def run_LRModel(model, data):
     print(predictions)
     print(predictions.shape)
     # predictions = predictions.reshape(len(predictions), 1)
-    output = np.append(labels, predictions, axis = 1)
+    # output = np.append(labels, predictions, axis = 1)
+    output = nnp.append(labels, predictions, axis = 1)
     #print(output)
     return output
 
@@ -357,14 +375,16 @@ def run_NNModel_Legacy(model, data):
 
     h, w = y_predicted.shape
     #print(y_predicted.shape, y_vectors.shape)
-    special_interest = np.zeros((h, w - 1))
+    # special_interest = np.zeros((h, w - 1))
+    special_interest = nnp.zeros((h, w - 1))
     for i in range(len(y_vectors)):
         if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
             if y_vectors[i][0] == 1 and y_vectors[i][1] == 0 and y_predicted[i][0] == 0 and y_predicted[i][1] == 1:
                 special_interest[i] = 1
 
     labels = labels.reshape(len(labels), 1)
-    newLabels = np.append(labels, special_interest, axis = 1)
+    # newLabels = np.append(labels, special_interest, axis = 1)
+    newLabels = nnp.append(labels, special_interest, axis = 1)
     #print(newLabels)
     return [features, newLabels]
 
