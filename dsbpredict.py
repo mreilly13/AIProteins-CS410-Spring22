@@ -6,9 +6,9 @@ import argparse
 import gzip
 import shutil
 import Parser.parsePDB as parser
-import NNModel.init as train
-import NNModel.launchModel as test
-import NNModel.blackBox as model
+from NNModel.init import train
+from NNModel.launchModel import test
+from NNModel.blackBox import load_model
 
 # directories
 cwd = os.getcwd()
@@ -147,7 +147,7 @@ if args.organize or args.all:
         else:
             print("already sorted")
 if args.train or args.all:
-    train.main()
+    train()
 if args.e:
     def test_file(argpath, NNModel):
         if argpath.endswith(pdb_ext):
@@ -160,7 +160,7 @@ if args.e:
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
-                results = test.load(data, name, NNModel)
+                results = test(data, name, NNModel)
                 print(name, "evaluated")
                 support_ss = []
                 no_support_ss = []
@@ -184,7 +184,7 @@ if args.e:
         else:
             print(name, "is not a pdb file")
             
-    NNModel = model.load_model("YBYF_Model_1")
+    NNModel = load_model("YBYF_Model_1")
     for arg in args.e:
         argpath = os.path.abspath(arg)
         if os.path.isdir(argpath):

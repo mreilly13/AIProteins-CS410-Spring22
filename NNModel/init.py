@@ -9,7 +9,7 @@ Notation:
     NF = No Feature scaling
     YF = Yes Feature scaling
 """
-def main():
+def train():
     print("LOADING DATA")
     ss_dataset = load_ss_data()
     print("PREPROCESSING DATA")
@@ -20,4 +20,4 @@ def main():
     print("MODEL SAVED")
 
 if __name__=="__main__":
-    main()
+    train()
