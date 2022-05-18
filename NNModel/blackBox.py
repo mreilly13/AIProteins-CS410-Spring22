@@ -151,9 +151,9 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     y_test = data[5]
 
     # Hyperparameters:
-    num_epochs = 30
+    num_epochs = 20
     # batch_size = 100
-    batch_size = 100
+    batch_size = 75
     
     if batch_training:
         num_epochs = 1
@@ -162,7 +162,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     eta = learning_rate
     decay_factor = 0.95
     # size_hidden = 500 # nodes per layer
-    size_hidden = 350
+    size_hidden = 300
 
     # static parameters
     size_input = 4 # number of features
@@ -180,20 +180,19 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer02'))
     _model.append(Dropout(.05))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer03'))
-
+    
     if batchNormalize:
         _model.append(BatchNormalization())
     
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer04'))
     _model.append(Dropout(.05))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer05'))
-
+    
     if batchNormalize:
         _model.append(BatchNormalization())
-    
+
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer06'))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer07'))
-    _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer08'))
     _model.append(Dense(size_output, activation='softmax', name='output_layer'))
 
     model = Sequential(_model)
