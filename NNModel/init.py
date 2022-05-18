@@ -13,6 +13,7 @@ Notation:
 def main():
     print("LOADING DATA")
     ss_dataset = load_ss_data()
+    print("PREPROCESSING DATA")
     feature_scaled_ss_dataset = feature_scaling(ss_dataset)
     split_ss_data = dataset_split(feature_scaled_ss_dataset[0], feature_scaled_ss_dataset[1])
     YBYF_M1 = neural_network(split_ss_data, True, learning_rate=0.00001)
