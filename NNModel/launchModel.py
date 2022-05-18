@@ -5,6 +5,7 @@ import NNModel.Util.graphs as graphs
 def load(data):
     # load data from single file
     dataset = load_single_data(data) # put file name here
+    graphs.plotData(dataset[0])
     #large_dataset = load_ss_data()
     print("LOADING IN NEURAL NETWORK MODEL")
     NN_model = load_model("YBYF_Model_1")
