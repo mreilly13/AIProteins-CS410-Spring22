@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from .helper import util_helper
 import numpy as np
 import pandas as pd
+import os
 
 """
 
@@ -11,7 +12,8 @@ import pandas as pd
 
 """
 
-graph_fp = "NNModel/util/graphOutput/"
+graph_fp = "NNModel/Util/GraphOutput/"
+os.makedirs(os.path.dirname(os.getcwd() + graph_fp), exist_ok=True)
 
 def parameter_tuning(v_loss, t_loss, title):
 
