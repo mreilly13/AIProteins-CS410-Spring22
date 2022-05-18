@@ -3,7 +3,6 @@ import NNModel.Util.graphs as graphs
 
 def load(data, NNModel):
     dataset = load_single_data(data)
-    # graphs.plotData(dataset[0])
     return run_NNModel(NNModel, dataset)
 
 if __name__=="__main__":
