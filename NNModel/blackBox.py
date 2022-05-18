@@ -112,7 +112,7 @@ def _test_load_data():
 
     # data = np.genfromtxt("tmp/data.csv", delimiter=",")
     # features = np.copy(data[:, 0:4])
-    data = nnp.genfromtxt("tmp/data.csv", delimiter=",")
+    data = nnp.genfromtxt(os.getcwd() + "/NNModel/Tmp/data.csv", delimiter=",")
     features = nnp.copy(data[:, 0:4])
     
     # preprocessing
@@ -125,7 +125,7 @@ def _test_load_data():
     features[:, 3] = features[:, 3] / nnp.pi
 
     # labels = np.copy(data[:, 4])
-    labels = nnp.copy(data[:, 4])
+    labels = nnp.copy(data[:, 4:])
 
     # print(features.shape, labels.shape)
 
