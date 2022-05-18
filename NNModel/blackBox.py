@@ -136,7 +136,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
     eta = learning_rate
     decay_factor = 0.95
-    size_hidden = 500 # 300
+    size_hidden = 300 # 300
 
     # static parameters
     size_input = 4 # number of features
