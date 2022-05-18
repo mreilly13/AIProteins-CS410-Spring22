@@ -12,7 +12,7 @@ import os
 
 """
 
-graph_fp = "/NNModel/GraphOutput/"
+graph_fp = "/Out/Graphs/"
 
 def parameter_tuning(v_loss, t_loss, title):
     plt.plot(v_loss, "o", 1, color="red", label="Validation loss")
@@ -103,11 +103,11 @@ def roc_graph(prediction_info, extra=""):
     plt.savefig(cwd + graph_fp + "ROC.png")
     plt.close()
 
-def plotData(data):
+def plotData(data, name):
     pdb_chart = pd.DataFrame(data, columns=['dist', 'omega', 'theta', 'phi'])
     seaborn.pairplot(pdb_chart)
     cwd = makePath()
-    plt.savefig(cwd + graph_fp + "linearGraphing.png")
+    plt.savefig(cwd + graph_fp + name + ".png")
     
 def makePath():
     cwd = os.getcwd()

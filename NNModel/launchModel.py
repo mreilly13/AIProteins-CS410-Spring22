@@ -1,5 +1,4 @@
 from NNModel.blackBox import load_single_data, run_NNModel
-import NNModel.Util.graphs as graphs
 
 def load(data, NNModel):
     dataset = load_single_data(data)

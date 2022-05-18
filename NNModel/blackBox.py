@@ -103,7 +103,7 @@ def load_ss_data():
     non_ss_features = np.array(non_ss_features)
     non_ss_labels = np.zeros((len(non_ss_features)))
 
-    noise_ratio = .01
+    noise_ratio = .02
     noise = int(len(non_ss_features) * noise_ratio)
 
     noise_features = non_ss_features[:noise, :]
@@ -218,7 +218,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     correct = _prediction_info[2]
     wrong = _prediction_info[3]
     total = correct + wrong
-    print("Total: " + str(total) + ", Correct: " + str(correct) + ", Incorrect: " + str(wrong))
+    print(f"Total:{total}, Correct: {correct}, Incorrect: {wrong}, Accuracy: {correct/total}")
 
     # fit, evaluation, prediction
     if batch_training:

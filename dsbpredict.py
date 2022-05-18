@@ -9,6 +9,7 @@ import Parser.parsePDB as parser
 import NNModel.init as train
 import NNModel.launchModel as test
 import NNModel.blackBox as model
+import NNModel.Util.graphs as graphs
 
 # directories
 cwd = os.getcwd()
@@ -18,7 +19,8 @@ parsed_fp = "/Data/Parsed/"
 rich_ss_fp = "/Data/RichSS/"
 sparse_ss_fp = "/Data/SparseSS/"
 no_ss_fp = "/Data/NoSS/"
-test_fp = "/Out/"
+graph_fp = "/Out/Graphs/"
+test_fp = "/Out/Predictions/"
 zip_ext = ".ent.gz"
 pdb_ext = ".pdb"
 parse_ext = ".csv"
@@ -159,6 +161,7 @@ if args.e:
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
+                graphs.plotData(data[:4], name)
                 results = test.load(data, NNModel)
                 print(name, "evaluated")
                 support_ss = []
@@ -169,7 +172,7 @@ if args.e:
                     else:
                         no_support_ss.append(results[i])
                 support_ss.sort(key=lambda x: float(x[0]))
-                no_support_ss.sort(key=lambda x: float(x[1]))
+                no_support_ss.sort(key=lambda x: float(x[1]), reverse=True)
                 with open(outpath, "w") as f:
                     f.write(f"{name}\n")
                     f.write("\nResidue pairs that may support disulfides\n")
