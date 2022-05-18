@@ -165,7 +165,7 @@ if args.e:
                 no_support_ss = []
                 for i in range(len(data)):
                     print(results[i])
-                    if float(results[i][1]) >= .75:
+                    if float(results[i][1]) >= .5:
                         support_ss.append(results[i])
                     else:
                         no_support_ss.append(results[i])
@@ -176,13 +176,11 @@ if args.e:
                     f.write("\nResidue pairs that may support disulfides\n")
                     f.write("res 1\tres 2\tconfidence\n\n")
                     for i in support_ss:
-                        #f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{i[0]:.4f}\n")
-                        f.write(i)
+                        f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{float(i[0]):.4f}\n")
                     f.write("\nResidue pairs that may not support disulfides\n")
                     f.write("res 1\tres 2\tconfidence\n\n")
                     for i in no_support_ss:
-                        #f.write(f"{i[0]} {i[1]:4d}\t{i[2]} {i[3]:4d}\t{i[1]:.4f}\n")
-                        f.write(i)
+                        f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{float(i[1]):.4f}\n")
         else:
             print(name, "is not a pdb file")
             
