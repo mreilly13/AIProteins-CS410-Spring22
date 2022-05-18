@@ -12,7 +12,7 @@ import os
 
 """
 
-graph_fp = "NNModel/Util/GraphOutput/"
+graph_fp = "NNModel/GraphOutput/"
 os.makedirs(os.path.dirname(os.getcwd() + graph_fp), exist_ok=True)
 
 def parameter_tuning(v_loss, t_loss, title):
