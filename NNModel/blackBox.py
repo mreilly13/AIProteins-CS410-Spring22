@@ -127,8 +127,8 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     y_test = data[5]
 
     # Hyperparameters:
-    num_epochs = 20 # 20
-    batch_size = 100 # 75
+    num_epochs = 20
+    batch_size = 75
     
     if batch_training:
         num_epochs = 1
@@ -136,7 +136,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
     eta = learning_rate
     decay_factor = 0.95
-    size_hidden = 300 # 300
+    size_hidden = 300
 
     # static parameters
     size_input = 4 # number of features
@@ -216,7 +216,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     correct = _prediction_info[2]
     wrong = _prediction_info[3]
     total = correct + wrong
-    print(f"Total:{total}, Correct: {correct}, Incorrect: {wrong}")
+    print(f"Total: {total}, Correct: {correct}, Incorrect: {wrong}")
 
     # fit, evaluation, prediction
     if batch_training:
