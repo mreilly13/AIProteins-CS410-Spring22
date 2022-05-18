@@ -4,7 +4,7 @@ import NNModel.Util.graphs as graphs
 
 def load(data):
     # load data from single file
-    dataset = _test_load_data(data)
+    dataset = _test_load_data()
     # dataset = load_single_data(data)
     graphs.plotData(dataset[0])
     # large_dataset = load_ss_data()
