@@ -162,7 +162,8 @@ if args.e:
                 print(name, "evaluated")
                 support_ss = []
                 no_support_ss = []
-                for i in range(len(data)):
+                # for i in range(len(data)):
+                for i in range(42):
                     if float(results[i][1]) >= .5:
                         support_ss.append(results[i])
                     else:
