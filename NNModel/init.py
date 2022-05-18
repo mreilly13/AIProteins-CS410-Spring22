@@ -29,7 +29,6 @@ def main():
         This is the model with the best results preprocessing
     """
 
-
     # 0
     YBYF_M1 = neural_network(split_ss_data, True, learning_rate=0.00001)
     save_model(YBYF_M1[3], "YBYF_Model_1")

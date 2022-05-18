@@ -1,7 +1,7 @@
 from calendar import c
 import os
 import numpy as nnp
-#import cupy as np
+# import cupy as np
 import tensorflow as tf
 from numpy import loadtxt
 from tensorflow import keras
@@ -10,39 +10,36 @@ from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
 from NNModel.Util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
 
-#from sqlite3 import adapt
+# from sqlite3 import adapt
 
 
 def load_data():
     """ Load preparsed data """
 
-    """
-    TODO:
-        Remove hardcoded data path and replace with parsed
-        pdb file getter.
-    """ 
-    #data = np.genfromtxt("tmp/data.csv", delimiter=",")
+    # data = np.genfromtxt("tmp/data.csv", delimiter=",")
 
     cwd = os.getcwd()
     rich_ss_fp = "/Data/RichSS/"
     rich_ss = os.listdir(cwd + rich_ss_fp)
     rich_ss.sort()
     
-    #data = np.zeros((1, 9))
+    # data = np.zeros((1, 9))
     data = nnp.zeros((1, 9))
 
     for i in rich_ss:
-        #pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
+        # pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
+        # if pdb_data.shape == (9,):
+            # pdb_data = np.array([pdb_data])
+        # data = np.append(data,pdb_data,axis=0)
+        # pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
         pdb_data = nnp.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
         if pdb_data.shape == (9,):
-            #pdb_data = np.array([pdb_data])
             pdb_data = nnp.array([pdb_data])
-        #data = np.append(data,pdb_data,axis=0)
         data = nnp.append(data,pdb_data,axis=0)
     
     data = data[1:]
 
-    #features = np.copy(data[:, 0:4])
+    # features = np.copy(data[:, 0:4])
     features = nnp.copy(data[:, 0:4])
     
     # preprocessing
@@ -56,8 +53,8 @@ def load_data():
     
     # labels = np.copy(data[:, 4])
     labels = nnp.copy(data[:, 4])
-    #print(features.shape, labels.shape)
-    #return [features.get(), labels.get()]
+    # print(features.shape, labels.shape)
+    # return [features.get(), labels.get()]
     return [features, labels]
 
 # meant to be used when testing a loaded model.
@@ -72,7 +69,6 @@ def load_single_data(_data):
     features[:, 1] = features[:, 1] / nnp.pi
     features[:, 2] = features[:, 2] / nnp.pi
     features[:, 3] = features[:, 3] / nnp.pi
-    
 
     labels = nnp.copy(data[:, 4:])
 
@@ -86,7 +82,6 @@ def load_ss_data():
     ss_features = []
     non_ss_features = []
 
-
     for i in range(len(features)):
         if labels[i] == 1:
             ss_features.append(features[i])
@@ -97,23 +92,20 @@ def load_ss_data():
     non_ss_features = nnp.array(non_ss_features)
     non_ss_labels = nnp.zeros((len(non_ss_features)))
 
-
-    noise = len(non_ss_features) * .10
+    noise = len(non_ss_features) * .01
     noise = int(noise)
 
     noise_features = non_ss_features[:noise, :]
     noise_labels = non_ss_labels[:noise]
-    print(ss_features.shape, ss_labels.shape)
-    print(noise_features.shape, noise_labels.shape)
+    # print(ss_features.shape, ss_labels.shape)
+    # print(noise_features.shape, noise_labels.shape)
 
     features = nnp.append(ss_features, noise_features, axis= 0)
     labels = nnp.append(ss_labels, noise_labels, axis= 0)
-    print(features.shape, labels.shape)
+    # print(features.shape, labels.shape)
     
-    #print(ss_labels.shape, ss_features.shape)
+    # print(ss_labels.shape, ss_features.shape)
     return [features, labels]
-
-
 
 def _test_load_data():
     """ use this only for internal testing """
@@ -131,12 +123,11 @@ def _test_load_data():
     features[:, 1] = features[:, 1] / nnp.pi
     features[:, 2] = features[:, 2] / nnp.pi
     features[:, 3] = features[:, 3] / nnp.pi
-    
 
     # labels = np.copy(data[:, 4])
     labels = nnp.copy(data[:, 4])
 
-    #print(features.shape, labels.shape)
+    # print(features.shape, labels.shape)
 
     # return [features.get(), labels.get()]
     return [features, labels]
@@ -159,10 +150,9 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     y_validate = data[4]
     y_test = data[5]
 
-
     # Hyperparameters:
     num_epochs = 15
-    #batch_size = 100
+    # batch_size = 100
     batch_size = 75
     
     if batch_training:
@@ -171,15 +161,13 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
     eta = learning_rate
     decay_factor = 0.95
-    #size_hidden = 500 # nodes per layer
+    # size_hidden = 500 # nodes per layer
     size_hidden = 250
-
 
     # static parameters
     size_input = 4 # number of features
     size_output =  2 # number of labels
     Input_shape = (size_input,)
-
 
     # Neural Network Model
     _model = []
@@ -205,10 +193,8 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
     model = Sequential(_model)
 
-
     # Model information
     model.summary()
-
 
     # initializing label in vector form [1, 0, ...], [0, 1, ...], ...
     y_train_vectors = keras.utils.to_categorical(y_train)
@@ -218,7 +204,6 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     y_train_vectors = fix_vectors(y_train_vectors)
     y_test_vectors = fix_vectors(y_test_vectors)
     y_validate_vectors = fix_vectors(y_validate_vectors)
-
 
     # setting up optimizer and scheduler
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
@@ -230,8 +215,6 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     
     loss_function = keras.losses.categorical_crossentropy
 
-
-
     # setting up model.
     model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
 
@@ -242,7 +225,6 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
         _history = model.fit(x_train, y_train_vectors, batch_size=batch_size, epochs=num_epochs, validation_data=(x_validate, y_validate_vectors), verbose=2, callbacks=[_batch_learning_curve_info])
     else:
         _history = model.fit(x_train, y_train_vectors, batch_size=batch_size, epochs=num_epochs, validation_data=(x_validate, y_validate_vectors), verbose=2)
-
 
     # [loss, accuracy]
     results = model.evaluate(x_test, y_test_vectors, batch_size)
@@ -257,9 +239,6 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     wrong = _prediction_info[3]
     total = correct + wrong
     print("Total: " + str(total) + ", Correct: " + str(correct) + ", Incorrect: " + str(wrong))
-
-
-
 
     # fit, evaluation, prediction
     if batch_training:
@@ -313,7 +292,6 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
     # Model information
     model.summary()
 
-
     y_train_vectors = keras.utils.to_categorical(y_train)
     y_test_vectors = keras.utils.to_categorical(y_test)
     y_validate_vectors = keras.utils.to_categorical(y_validate)
@@ -321,7 +299,6 @@ def regression_neural_network(data, epoch=15, learning_rate=0.00001, layers=5, n
     y_train_vectors = fix_vectors(y_train_vectors)
     y_test_vectors = fix_vectors(y_test_vectors)
     y_validate_vectors = fix_vectors(y_validate_vectors)
-
 
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
     optimizer = keras.optimizers.SGD(learning_rate=learning_rate_schedule)
@@ -360,13 +337,13 @@ def run_LRModel(model, data):
     # predictions = predictions.reshape(len(predictions), 1)
     # output = np.append(labels, predictions, axis = 1)
     output = nnp.append(labels, predictions, axis = 1)
-    #print(output)
+    # print(output)
     return output
 
 def run_NNModel_Legacy(model, data):
     features = data[0]
     labels = data[1]
-    #print(labels)
+    # print(labels)
     y_vectors = utils.to_categorical(labels)
     y_vectors = fix_vectors(y_vectors)
     predictions = model.predict(features)
@@ -374,7 +351,7 @@ def run_NNModel_Legacy(model, data):
     y_predicted = _prediction_info[0]
 
     h, w = y_predicted.shape
-    #print(y_predicted.shape, y_vectors.shape)
+    # print(y_predicted.shape, y_vectors.shape)
     # special_interest = np.zeros((h, w - 1))
     special_interest = nnp.zeros((h, w - 1))
     for i in range(len(y_vectors)):
@@ -385,14 +362,14 @@ def run_NNModel_Legacy(model, data):
     labels = labels.reshape(len(labels), 1)
     # newLabels = np.append(labels, special_interest, axis = 1)
     newLabels = nnp.append(labels, special_interest, axis = 1)
-    #print(newLabels)
+    # print(newLabels)
     return [features, newLabels]
 
 def run_NNModel(model, data):
     features = data[0]
     labels_raw = data[1]
     labels = labels_raw[:, 0].astype(nnp.float32)
-    #print(labels)
+    # print(labels)
     y_vectors = utils.to_categorical(labels)
     y_vectors = fix_vectors(y_vectors)
     predictions = model.predict(features)
@@ -401,18 +378,18 @@ def run_NNModel(model, data):
     y_processed_predicted = _prediction_info[0]
     return nnp.append(y_predicted, labels_raw, axis = 1)
 
-    #h, w = y_predicted.shape
-    #print(y_predicted.shape, y_vectors.shape)
-    #special_interest = np.zeros((h, w - 1))
-    #for i in range(len(y_vectors)):
-    #    if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
-    #        if y_vectors[i][0] == 1 and y_vectors[i][1] == 0 and y_predicted[i][0] == 0 and y_predicted[i][1] == 1:
-    #            special_interest[i] = 1
+    # h, w = y_predicted.shape
+    # print(y_predicted.shape, y_vectors.shape)
+    # special_interest = np.zeros((h, w - 1))
+    # for i in range(len(y_vectors)):
+    #     if y_predicted[i][0] != y_vectors[i][0] and y_predicted[i][1] != y_vectors[i][1]:
+    #         if y_vectors[i][0] == 1 and y_vectors[i][1] == 0 and y_predicted[i][0] == 0 and y_predicted[i][1] == 1:
+    #             special_interest[i] = 1
 
-    #labels = labels.reshape(len(labels), 1)
-    #newLabels = np.append(labels, special_interest, axis = 1)
-    #print(newLabels)
-    return [features, newLabels]
+    # labels = labels.reshape(len(labels), 1)
+    # newLabels = np.append(labels, special_interest, axis = 1)
+    # print(newLabels)
+    # return [features, newLabels]
 
 def save_model(model, fileName):
     cwd = os.getcwd()

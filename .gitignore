@@ -138,3 +138,4 @@ failed.csv
 # result files
 *.png
 pdb*.txt
+tmp.txt
