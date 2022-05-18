@@ -158,7 +158,6 @@ if args.e:
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
-                print(data)
                 results = test.load(data)
                 print(name, "evaluated")
                 support_ss = []
@@ -168,8 +167,8 @@ if args.e:
                         support_ss.append(results[i])
                     else:
                         no_support_ss.append(results[i])
-                support_ss.sort(key=lambda x: float(x[1]))
-                no_support_ss.sort(key=lambda x: float(x[0]))
+                support_ss.sort(key=lambda x: float(x[0]))
+                no_support_ss.sort(key=lambda x: float(x[1]))
                 with open(outpath, "w") as f:
                     f.write(f"{name}\n")
                     f.write("\nResidue pairs that may support disulfides\n")
