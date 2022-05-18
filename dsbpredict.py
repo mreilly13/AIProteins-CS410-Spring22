@@ -46,6 +46,7 @@ else:
     os.makedirs(os.path.dirname(cwd + rich_ss_fp), exist_ok=True)
     os.makedirs(os.path.dirname(cwd + sparse_ss_fp), exist_ok=True)
     os.makedirs(os.path.dirname(cwd + no_ss_fp), exist_ok=True)
+    os.makedirs(os.path.dirname(cwd + test_fp), exist_ok=True)
     
 if args.download:
     proc = subprocess.Popen('/bin/bash', text=True, stdin=subprocess.PIPE, stdout=sys.stdout, stderr=sys.stderr)
@@ -147,7 +148,7 @@ if args.organize or args.all:
 if args.train or args.all:
     train.main()
 if args.e:
-    def test_file(argpath):
+    def test_file(argpath, NNModel):
         if argpath.endswith(pdb_ext):
             name = argpath.split('/')[-1]
             name = name.removesuffix(pdb_ext)
@@ -158,12 +159,11 @@ if args.e:
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
-                results = test.load(data)
+                results = test.load(data, NNModel)
                 print(name, "evaluated")
                 support_ss = []
                 no_support_ss = []
-                # for i in range(len(data)):
-                for i in range(42):
+                for i in range(len(data)):
                     if float(results[i][1]) >= .5:
                         support_ss.append(results[i])
                     else:
@@ -183,16 +183,16 @@ if args.e:
         else:
             print(name, "is not a pdb file")
             
-    os.makedirs(os.path.dirname(cwd + test_fp), exist_ok=True)
+    NNModel = model.load_model("YBYF_Model_1")
     for arg in args.e:
         argpath = os.path.abspath(arg)
         if os.path.isdir(argpath):
             contents = os.listdir(argpath)
             contents.sort()
             for f in contents:
-                test_file(argpath + '/' + f)
+                test_file(argpath + '/' + f, NNModel)
         else:
             if os.path.exists(argpath):
-                test_file(argpath)
+                test_file(argpath, NNModel)
             else:
                 print(arg, "not found")

@@ -1,21 +1,13 @@
-from NNModel.blackBox import load_data, load_single_data, load_ss_data, load_model, run_NNModel, run_LRModel, _test_load_data
+from NNModel.blackBox import load_single_data, run_NNModel
 import NNModel.Util.graphs as graphs
 
-
-def load(data):
+def load(data, NNModel):
     # load data from single file
-    dataset = _test_load_data()
-    # dataset = load_single_data(data)
-    graphs.plotData(dataset[0])
-    # large_dataset = load_ss_data()
-    print("LOADING IN NEURAL NETWORK MODEL")
-    NN_model = load_model("YBYF_Model_1")
-    return run_NNModel(NN_model, dataset)
-    # regression_preped_dataset = run_NNModel(NN_model, dataset)
-    # graphs.plotData(large_dataset[0])
-    # print("LOADING IN REGRESSION MODEL")
-    # LR_model = load_model("YBYF_Model_2")
-    # return run_LRModel(LR_model, regression_preped_dataset)
+    dataset = load_single_data(data)
+    # graphs.plotData(dataset[0])
+    # print("LOADING IN NEURAL NETWORK MODEL")
+    # NN_model = load_model("YBYF_Model_1")
+    return run_NNModel(NNModel, dataset)
 
 if __name__=="__main__":
     load()
