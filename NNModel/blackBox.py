@@ -146,7 +146,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     # Hyperparameters:
     num_epochs = 15
     #batch_size = 100
-    batch_size = 50
+    batch_size = 75
     
     if batch_training:
         num_epochs = 1
@@ -178,7 +178,12 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     if batchNormalize:
         _model.append(BatchNormalization())
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer04'))
+    _model.append(Dropout(.05))
     _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer05'))
+    if batchNormalize:
+        _model.append(BatchNormalization())
+    _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer06'))
+    _model.append(Dense(size_hidden, activation=activation_function, name='hidden_layer07'))
     _model.append(Dense(size_output, activation='softmax', name='output_layer'))
 
     model = Sequential(_model)
