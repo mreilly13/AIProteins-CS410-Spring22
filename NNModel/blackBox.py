@@ -103,7 +103,7 @@ def load_ss_data():
     non_ss_features = np.array(non_ss_features)
     non_ss_labels = np.zeros((len(non_ss_features)))
 
-    noise_ratio = .025
+    noise_ratio = .02
     noise = int(len(non_ss_features) * noise_ratio)
 
     noise_features = non_ss_features[:noise, :]
@@ -127,9 +127,8 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     y_test = data[5]
 
     # Hyperparameters:
-    num_epochs = 20
-    # batch_size = 100
-    batch_size = 75
+    num_epochs = 25
+    batch_size = 32 # 75
     
     if batch_training:
         num_epochs = 1
@@ -137,8 +136,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
 
     eta = learning_rate
     decay_factor = 0.95
-    # size_hidden = 500 # nodes per layer
-    size_hidden = 300
+    size_hidden = 500 # 300
 
     # static parameters
     size_input = 4 # number of features
