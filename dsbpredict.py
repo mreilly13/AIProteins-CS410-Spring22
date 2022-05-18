@@ -153,7 +153,7 @@ if args.e:
             name = argpath.split('/')[-1]
             name = name.removesuffix(pdb_ext)
             outpath = cwd + test_fp + name + result_ext
-            errc, raw = parser.parse(argpath, True)
+            errc, raw = parser.parse(argpath, False)
             if errc != 0:
                 print(name, "parse failed")
             else:
