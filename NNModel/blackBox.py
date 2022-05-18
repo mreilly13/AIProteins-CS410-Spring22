@@ -103,8 +103,8 @@ def load_ss_data():
     non_ss_features = np.array(non_ss_features)
     non_ss_labels = np.zeros((len(non_ss_features)))
 
-    noise = len(non_ss_features) * .10
-    noise = int(noise)
+    noise_ratio = 1.0
+    noise = int(len(non_ss_features) * noise_ratio)
 
     noise_features = non_ss_features[:noise, :]
     noise_labels = non_ss_labels[:noise]
