@@ -164,23 +164,22 @@ if args.e:
                 support_ss = []
                 no_support_ss = []
                 for i in range(len(data)):
-                    print(results[i])
                     if float(results[i][1]) >= .5:
                         support_ss.append(results[i])
                     else:
                         no_support_ss.append(results[i])
-                support_ss.sort(key=lambda x: x[4], reverse=True)
-                no_support_ss.sort(key=lambda x: x[4], reverse=True)
+                support_ss.sort(key=lambda x: float(x[1]))
+                no_support_ss.sort(key=lambda x: float(x[0]))
                 with open(outpath, "w") as f:
                     f.write(f"{name}\n")
                     f.write("\nResidue pairs that may support disulfides\n")
                     f.write("res 1\tres 2\tconfidence\n\n")
                     for i in support_ss:
-                        f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{float(i[0]):.4f}\n")
+                        f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{float(i[1]):.4f}\n")
                     f.write("\nResidue pairs that may not support disulfides\n")
                     f.write("res 1\tres 2\tconfidence\n\n")
                     for i in no_support_ss:
-                        f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{float(i[1]):.4f}\n")
+                        f.write(f"{i[3]} {i[4]:4}\t{i[5]} {i[6]}\t{float(i[0]):.4f}\n")
         else:
             print(name, "is not a pdb file")
             
