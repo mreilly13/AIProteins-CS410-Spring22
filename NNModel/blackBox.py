@@ -127,7 +127,7 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     y_test = data[5]
 
     # Hyperparameters:
-    num_epochs = 25
+    num_epochs = 20
     batch_size = 32 # 75
     
     if batch_training:
