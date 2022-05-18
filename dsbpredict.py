@@ -160,7 +160,7 @@ if args.e:
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
-                results = test.load(data, NNModel, name)
+                results = test.load(data, name, NNModel)
                 print(name, "evaluated")
                 support_ss = []
                 no_support_ss = []
