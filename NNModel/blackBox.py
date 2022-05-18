@@ -10,9 +10,6 @@ from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
 from NNModel.Util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
 
-# from sqlite3 import adapt
-
-
 def load_data():
     """ Load preparsed data """
 
@@ -397,14 +394,13 @@ def run_NNModel(model, data):
 
 def save_model(model, fileName):
     cwd = os.getcwd()
-    sm_path = "/NNModel/saved_models/"
+    sm_path = "/NNModel/SavedModels/"
     os.makedirs(os.path.dirname(cwd + sm_path), exist_ok=True)
     model.save(cwd + sm_path + fileName)
 
 def load_model(fileName):
     cwd = os.getcwd()
-    os.makedirs(os.path.dirname("NNModel/util/graph_output/"), exist_ok=True)
-    sm_path = "/NNModel/saved_models/"
+    sm_path = "/NNModel/SavedModels/"
     model = keras.models.load_model(cwd + sm_path + fileName)
     model.summary()
     return model
