@@ -6,7 +6,7 @@ dependencies:
 - cudatoolkit=11.3.1
 - cudnn=8.2.1
 - pip:
-  - cupy
+  - cupy==10.4.0
   - matplotlib
   - numpy
   - pandas
