@@ -13,7 +13,7 @@ def load_data():
     #Load preparsed data - GPU accelerated version
 
     cwd = os.getcwd()
-    rich_ss_fp = "/Data/RichSS/"
+    rich_ss_fp = "/Data/Parsed/"
     rich_ss = os.listdir(cwd + rich_ss_fp)
     rich_ss.sort()
     
