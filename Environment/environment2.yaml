@@ -1,0 +1,15 @@
+name: tf1
+channels:
+  - defaults
+dependencies:
+  - asposestorage==1.0.2
+  - black_box==1.0.2
+  - cupy==10.4.0
+  - matplotlib==3.3.2
+  - numpy==1.20.2
+  - pandas==1.2.4
+  - scikit_learn==1.1.0
+  - scipy==1.6.2
+  - seaborn==0.11.1
+  - tensorflow==2.9.0
+  - torch==1.11.0
