@@ -18,12 +18,12 @@ csv_type = [
 csv_format = ['%f','%f','%f','%f','%d','%s','%d','%s','%d']
 
 # parse a PDB file, extracting cysteine information
-def parse(filename, test=False):
+def parse_cys(filename, test=False):
     pdb = parser.parse_pdb(filename)
     if pdb == []:
         return (1 , [])
     ssbond = pdb['ssbond']
-    if not test and ssbond == []:
+    if ssbond == []:
         return (2, [])
     xyz = []
     idx = []
@@ -33,6 +33,8 @@ def parse(filename, test=False):
             xyz.append(pdb['xyz'][i])
             idx.append(pdb['idx'][i])
             res.append(pdb['res'][i])
+    if xyz == []:
+        return (2, [])
     xyz = np.array(xyz)
     xyz_ref = torch.tensor(xyz[:,:3,:]).float()
     c6d_ref = geometry.xyz_to_c6d(xyz_ref[None].permute(0,2,1,3),{'DMAX':20.0}).numpy()
