@@ -4,6 +4,7 @@ channels:
 dependencies:
 - python=3.9.7
 - pip=21.2.4
+- cudnn=8.2.1
 - setuptools=58.0.4
 - pip:
   - matplotlib==3.3.2
@@ -12,6 +13,6 @@ dependencies:
   - scikit-learn==1.0.1
   - scipy==1.7.2
   - seaborn==0.11.1
-  - tensorflow==2.9.0
-  - tensorflow-gpu==2.9.0
+  - tensorflow==2.8.0
+  - tensorflow-gpu==2.8.0
   - torch==1.11.0
