@@ -6,11 +6,8 @@ This project was developed for and in collaboration with AIProteins: https://aip
 This project trains a neural network model on currently identified proteins and their structures, to predict possible residue locations that can form disulfide bonds. These possible locations for residues are ranked from most to least optimal.
 
 <hr>
-<hr>
 
 ## **Contents**
-
-<hr>
 
 - [Setup](#setup)
     - [Environment](#environment)
@@ -30,11 +27,8 @@ This project trains a neural network model on currently identified proteins and 
     - [UMB Chimera Cluster Instructions](#umb-chimera-cluster-instructions-1)
 
 <hr>
-<hr>
 
 ## **Setup**
-
-<hr>
 
 ### **Environment**
 
@@ -59,8 +53,6 @@ This project was developed and runs with:
 The setup of these packages is handled by conda. If you do not already have conda installed, follow these instructions: [conda installation](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
 This project is designed to be run in a unix environment, on a system with a deep learning enabled NVidia GPU. The procedure to install and use may be different on other systems.
-
-<hr>
 
 ### **Acquire Files**
 
@@ -90,8 +82,6 @@ Once this finishes, run the command:
 conda activate dsbpredict
 ```
 
-<hr>
-
 ### **UMB Chimera Cluster Instructions**
 
 <details><summary>click to open</summary>
@@ -109,11 +99,8 @@ Restart your terminal to activate anaconda, then follow the above installation i
 </details>  
 
 <hr>
-<hr>
 
 ## **Usage**
-
-<hr>
 
 ### **Overview**
 
@@ -127,8 +114,6 @@ The different functions are summarized by running the script with no arguments, 
 
 All preprocessing functions can be used to update the existing data files if there are changes, without needing to process every file; the functions automatically act only on new files.
 
-<hr>
-
 ### **Downloading the Database**
 
 To download the entire protein database from https://www.wwpdb.org/, run the command:
@@ -141,8 +126,6 @@ To download the entire protein database from https://www.wwpdb.org/, run the com
 
 The database are saved in `/DSBPredict/Data/Raw/`.
 
-<hr>
-
 ### **Unzipping the Database**
 
 To unzip the entire protein database, run the command:
@@ -152,8 +135,6 @@ To unzip the entire protein database, run the command:
 ```
 
 The `.pdb` files are saved in `/DSBPredict/Data/PDB/`.
-
-<hr>
 
 ### **Parsing the Database**
 
@@ -169,8 +150,6 @@ To parse the entire protein database, run the command:
 
 The parsed data are saved as `.csv` files in `/DSBPredict/Data/Parsed/`.
 
-<hr>
-
 ### **Training the Model**
 
 This function will use the parsed data to train a Neural Network to predict the likelihood that a pair of cysteine residues will be able to support a disulfide bond, ranking them by the network's confidence in its prediction. Further documentation of the neural network's structure is available [here]().
@@ -183,8 +162,6 @@ To train the neural network, run the command:
 
 The model is saved in `/DSBPredict/NNModel/SavedModels/`. Graphs analyzing the network's training are generated in `/DSBPredict/Out/Graphs/`.
 
-<hr>
-
 ### **Perform All Preparation Functions**
 
 To perform all above functions at once, run the command:
@@ -192,8 +169,6 @@ To perform all above functions at once, run the command:
 ```
 ./dsbpredict -a
 ```
-
-<hr>
 
 ### **Use the Model to Evaluate a Protein**
 
@@ -210,8 +185,6 @@ Where `[args]` is a path to one or more `.pdb` files or directories containind `
 ```
 
 This will create a report in `/DSBPredict/Out/Predictions/` for each passed protein, with the same name as the protein, but with a `.txt` extension. Residue pairs are ranked from most likely to support a disulfide bond to least likely, with a delineation at 50% confidence. This also generates a graph of the input data, in `DSBPredict/Out/Graphs/`, again with the same name as the protein, but with a `.png` extension.
-
-<hr>
 
 ### **UMB Chimera Cluster Instructions**
 
