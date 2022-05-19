@@ -130,6 +130,7 @@ dmypy.json
 
 # PDB related files
 *.ent.gz
+*.zip
 *.pdb
 .listing
 pdb*.csv
