@@ -6,13 +6,14 @@ dependencies:
 - pip=21.2.4
 - cudatoolkit=11.3.1
 - cudnn=8.2.1
+- setuptools=58.0.4
 - pip:
-  - matplotlib
-  - numpy
-  - pandas
-  - scikit-learn
-  - scipy
-  - seaborn
-  - tensorflow
-  - tensorflow-gpu
-  - torch
+  - matplotlib==3.3.2
+  - numpy==1.20.0
+  - pandas==1.2.4
+  - scikit-learn==1.0.1
+  - scipy==1.7.2
+  - seaborn==0.11.1
+  - tensorflow==2.8.0
+  - tensorflow-gpu==2.8.0
+  - torch==1.11.0
