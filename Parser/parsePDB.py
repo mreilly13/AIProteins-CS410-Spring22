@@ -17,8 +17,8 @@ csv_type = [
 ]
 csv_format = ['%f','%f','%f','%f','%d','%s','%d','%s','%d']
 
-# parse a PDB file, extracting cysteine information
 def parse(filename, test=False):
+    # parse a PDB file, extracting cysteine information
     pdb = parser.parse_pdb(filename)
     if pdb == []:
         return (1 , [])
