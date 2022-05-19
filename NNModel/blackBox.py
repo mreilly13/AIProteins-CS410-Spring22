@@ -23,7 +23,7 @@ def load_data():
         pdb_data = cp.genfromtxt(cwd + parsed_fp + i, delimiter=",")
         if pdb_data.shape == (9,):
             pdb_data = cp.array([pdb_data])
-        print(data.shape, pdb_data.shape)
+        print(i, data.shape, pdb_data.shape)
         data = cp.append(data,pdb_data,axis=0)
     
     data = data[1:]
