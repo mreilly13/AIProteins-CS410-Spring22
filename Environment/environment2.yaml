@@ -7,12 +7,12 @@ dependencies:
 - cudnn=8.2.1
 - pip:
   - cupy==10.4.0
-  - matplotlib
-  - numpy
-  - pandas
-  - scikit-learn
-  - scipy
-  - seaborn
-  - tensorflow
-  - tensorflow-gpu
-  - torch
+  - matplotlib==3.3.2
+  - numpy==1.19.5
+  - pandas==1.2.4
+  - scikit-learn==1.0.1
+  - scipy==1.7.2
+  - seaborn==0.11.1
+  - tensorflow==2.8.0
+  - tensorflow-gpu==2.8.0
+  - torch==1.11.0
