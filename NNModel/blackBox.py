@@ -1,6 +1,6 @@
 import os
 import numpy as np
-#import cupy as cp
+import cupy as cp
 from tensorflow import keras
 from tensorflow.keras import utils
 from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
