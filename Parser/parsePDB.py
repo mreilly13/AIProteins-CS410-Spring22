@@ -55,5 +55,4 @@ def parse(filename, test=False):
                 c6d.append(structd)
             j += 1
         i += 1
-    else:
-        return (0, c6d)
+    return (0, c6d)
