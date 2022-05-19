@@ -1,8 +1,0 @@
-/hpcstor6/scratch01/c/cs410
-srun -n 8 -N 1 -p DGXA100 -t 02:00:00 --mem=40gb --gres=gpu:1 --export=NONE --pty /bin/bash
-conda activate tf
-source /etc/profile
-python dsbpredict.py -t
-
-
-scp -r zihan.ma001@chimera.umb.edu:/hpcstor6/scratch01/c/cs410/DSBPredict/NNModel/util/graph_output/* .
