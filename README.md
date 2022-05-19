@@ -114,6 +114,8 @@ The different functions are summarized by running the script with no arguments, 
 
 All preprocessing functions can be used to update the existing data files if there are changes, without needing to process every file; the functions automatically act only on new files.
 
+If you do not want or need to train the neural network yourself, the repo contains a working neural network trained on the UMB Chimera Cluster: It can be used immediately following the instructions in [Use the Model to Evaluate a Protein](#use-the-model-to-evaluate-a-protein).
+
 ### **Downloading the Database**
 
 To download the entire protein database from https://www.wwpdb.org/, run the command:
