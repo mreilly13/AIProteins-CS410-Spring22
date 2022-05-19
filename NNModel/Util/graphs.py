@@ -14,10 +14,10 @@ import os
 
 graph_fp = "/Out/Graphs/"
 
-def parameter_tuning(v_loss, t_loss, title):
+def parameter_tuning(v_loss, t_loss):
     plt.plot(v_loss, "o", 1, color="red", label="Validation loss")
     plt.plot(t_loss, "o", color="blue", label="Training loss")
-    plt.title(title)
+    plt.title("Parameter Tuning")
     plt.xlabel("Model")
     plt.ylabel("Loss")
     plt.legend(loc="upper right")
@@ -29,7 +29,7 @@ def parameter_tuning(v_loss, t_loss, title):
 def learning_curve(learn_info): # for batch learning
     plt.plot(learn_info[0])
     plt.plot(learn_info[1])
-    plt.title("accuracy over samples")
+    plt.title("Accuracy Over Samples")
     plt.xlabel("Samples")
     plt.ylabel("Cost")
     plt.legend(["train", "loss"], loc="upper left")
