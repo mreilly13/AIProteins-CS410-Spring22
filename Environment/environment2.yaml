@@ -1,7 +1,8 @@
-name: tf1
+name: tf2
 channels:
   - defaults
-pip:
+dependencies:  
+- pip:
   - asposestorage=1.0.2
   - cupy=10.4.0
   - matplotlib=3.3.2
