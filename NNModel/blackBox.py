@@ -146,14 +146,11 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     # setting up optimizer and scheduler
     learning_rate_schedule = keras.optimizers.schedules.ExponentialDecay(initial_learning_rate=eta, decay_steps=x_train.shape[0], decay_rate=decay_factor)
     optimizer = keras.optimizers.Adam(learning_rate=learning_rate_schedule)
-                #keras.optimizers.Adamax(learning_rate=learning_rate_schedule)
-                #keras.optimizers.Adagrad(learning_rate=learning_rate_schedule) 
-                #keras.optimizers.SGD(learning_rate=learning_rate_schedule)
     loss_function = keras.losses.categorical_crossentropy
     
     # setting up model
     model.compile(loss=loss_function, optimizer=optimizer, metrics='accuracy')
-    if batch_training: # we are training with a epoch of 1 and batch_size of 1 to obtain the learning curve.
+    if batch_training: # training with a epoch of 1 and batch_size of 1 to obtain the learning curve
         _batch_learning_curve_info = LossAndErrorPrintingCallback()
         # history structure: _history.history['accuracy']['val_accuracy']['loss']['val_loss']
         _history = model.fit(x_train, y_train_vectors, batch_size=batch_size, epochs=num_epochs, validation_data=(x_validate, y_validate_vectors), verbose=2, callbacks=[_batch_learning_curve_info])

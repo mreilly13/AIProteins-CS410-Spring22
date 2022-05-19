@@ -23,7 +23,7 @@ def parse(filename, test=False):
     if pdb == []:
         return (1 , [])
     ssbond = pdb['ssbond']
-    if ssbond == []:
+    if not test and ssbond == []:
         return (2, [])
     xyz = []
     idx = []
