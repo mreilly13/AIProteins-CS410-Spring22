@@ -6,6 +6,7 @@ from tensorflow.keras import utils
 from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
 from NNModel.Util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
+from NNModel.Util.graphs import plot_data, parameter_tuning, learning_curve, confusion_matrix, roc_graph
 
 """
 def load_data():
@@ -217,6 +218,11 @@ def neural_network(data, batchNormalize=True, learning_rate=0.00001, batch_train
     wrong = _prediction_info[3]
     total = correct + wrong
     print(f"Total: {total}, Correct: {correct}, Incorrect: {wrong}")
+    
+    # Plotting results
+    parameter_tuning(_history.history['val_loss'], _history.history['loss'])
+    confusion_matrix(_prediction_info)
+    roc_graph(_prediction_info)
 
     # fit, evaluation, prediction
     if batch_training:

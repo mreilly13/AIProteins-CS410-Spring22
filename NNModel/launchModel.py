@@ -1,9 +1,9 @@
 from NNModel.blackBox import load_single_data, run_NNModel
-import NNModel.Util.graphs as graphs
+from NNModel.Util.graphs import plot_data
 
 def test(data, name, NNModel):
     dataset = load_single_data(data)
-    graphs.plotData(dataset[0], name)
+    plot_data(dataset[0], name)
     return run_NNModel(NNModel, dataset)
 
 if __name__=="__main__":
