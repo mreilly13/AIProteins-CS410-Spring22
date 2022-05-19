@@ -95,10 +95,7 @@ if args.parse or args.all:
                     print("parse failed")
                     f.write(name + '\n')
                 elif errc == 2:
-                    print("has no CYS residues")
-                    f.write(name + '\n')
-                elif errc == 3:
-                    print("has no bondable CYS residues")
+                    print("has no disulfide bonds")
                     f.write(name + '\n')
                 else:
                     print("parse successful")

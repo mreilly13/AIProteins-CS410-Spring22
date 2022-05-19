@@ -23,6 +23,8 @@ def parse(filename, test=False):
     if pdb == []:
         return (1 , [])
     ssbond = pdb['ssbond']
+    if not test and ssbond == []:
+        return (2, [])
     xyz = []
     idx = []
     res = []
@@ -31,8 +33,6 @@ def parse(filename, test=False):
             xyz.append(pdb['xyz'][i])
             idx.append(pdb['idx'][i])
             res.append(pdb['res'][i])
-    if xyz == []:
-        return (2, [])
     xyz = np.array(xyz)
     xyz_ref = torch.tensor(xyz[:,:3,:]).float()
     c6d_ref = geometry.xyz_to_c6d(xyz_ref[None].permute(0,2,1,3),{'DMAX':20.0}).numpy()
@@ -55,7 +55,5 @@ def parse(filename, test=False):
                 c6d.append(structd)
             j += 1
         i += 1
-    if c6d == []:
-        return (3, [])
     else:
         return (0, c6d)
