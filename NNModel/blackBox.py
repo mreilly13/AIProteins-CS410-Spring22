@@ -42,14 +42,14 @@ def load_data():
     # Load preparsed data - CPU version
 
     cwd = os.getcwd()
-    rich_ss_fp = "/Data/RichSS/"
-    rich_ss = os.listdir(cwd + rich_ss_fp)
-    rich_ss.sort()
+    parsed_fp = "/Data/Parsed/"
+    parsed = os.listdir(cwd + parsed_fp)
+    parsed.sort()
     
     data = np.zeros((1, 9))
 
-    for i in rich_ss:
-        pdb_data = np.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
+    for i in parsed:
+        pdb_data = np.genfromtxt(cwd + parsed_fp + i, delimiter=",")
         if pdb_data.shape == (9,):
             pdb_data = np.array([pdb_data])
         data = np.append(data,pdb_data,axis=0)
