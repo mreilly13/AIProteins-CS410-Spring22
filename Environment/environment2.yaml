@@ -2,9 +2,9 @@ name: tf2
 channels:
   - defaults
 dependencies:  
-- pip
-- cudatoolkit
-- cudnn
+- pip=21.2.4
+- cudatoolkit=11.3.1
+- cudnn=8.2.1
 - pip:
   - cupy
   - matplotlib
