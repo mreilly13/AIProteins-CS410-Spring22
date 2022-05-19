@@ -3,14 +3,16 @@ channels:
   - defaults
 dependencies:  
 - pip=21.2.4
+- cudatoolkit=11.3.1
+- cudnn=8.2.1
 - pip:
-  - asposestorage==1.0.2
   - cupy==10.4.0
   - matplotlib==3.3.2
-  - numpy==1.20.2
+  - numpy==1.19.5
   - pandas==1.2.4
-  - scikit_learn==1.1.0
+  - scikit-learn==1.0.1
   - scipy==1.7.2
   - seaborn==0.11.1
-  - tensorflow==2.9.0
+  - tensorflow==2.6.2
+  - tensorflow-gpu==2.6.0
   - torch==1.11.0
