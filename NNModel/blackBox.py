@@ -7,6 +7,7 @@ from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
 from NNModel.Util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
 
+"""
 def load_data():
     #Load preparsed data - GPU accelerated version
 
@@ -35,7 +36,6 @@ def load_data():
     labels = cp.copy(data[:, 4])
 
     return [features.get(), labels.get()]
-    
 """
 def load_data():
     # Load preparsed data - CPU version
@@ -66,7 +66,7 @@ def load_data():
     labels = np.copy(data[:, 4])
 
     return [features, labels]
-"""
+# """
 
 # meant to be used when testing a loaded model.
 def load_single_data(_data):
