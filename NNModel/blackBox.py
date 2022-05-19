@@ -13,14 +13,14 @@ def load_data():
     #Load preparsed data - GPU accelerated version
 
     cwd = os.getcwd()
-    rich_ss_fp = "/Data/Parsed/"
-    rich_ss = os.listdir(cwd + rich_ss_fp)
-    rich_ss.sort()
+    parsed_fp = "/Data/Parsed/"
+    parsed = os.listdir(cwd + parsed_fp)
+    parsed.sort()
     
     data = cp.zeros((1, 9))
 
-    for i in rich_ss:
-        pdb_data = cp.genfromtxt(cwd + rich_ss_fp + i, delimiter=",")
+    for i in parsed:
+        pdb_data = cp.genfromtxt(cwd + parsed_fp + i, delimiter=",")
         if pdb_data.shape == (9,):
             pdb_data = cp.array([pdb_data])
         data = cp.append(data,pdb_data,axis=0)
