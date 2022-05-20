@@ -117,7 +117,7 @@ if args.e:
             outpath = cwd + test_fp + name + result_ext
             errc, raw = parser.parse(argpath, args.all_residues)
             if errc != 0:
-                print(name, "parse failed", errc)
+                print(name, "parse failed")
             else:
                 print(name, "parse succeeded")
                 data = np.array([[i['dist'], i['omega'], i['theta'], i['phi'], i['ssbond'], i['chain1'], i['res1'], i['chain2'], i['res2']] for i in raw])
