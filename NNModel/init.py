@@ -15,8 +15,8 @@ def train():
     print("PREPROCESSING DATA")
     feature_scaled_ss_dataset = feature_scaling(ss_dataset)
     split_ss_data = dataset_split(feature_scaled_ss_dataset[0], feature_scaled_ss_dataset[1])
-    YBYF_M1 = neural_network(split_ss_data, True, learning_rate=0.00001)
-    save_model(YBYF_M1[3], "YBYF_Model_1")
+    YBYF_M1 = neural_network(split_ss_data, False, learning_rate=0.00001)
+    #save_model(YBYF_M1[3], "YBYF_Model_1")
     print("MODEL SAVED")
 
 if __name__=="__main__":
