@@ -6,9 +6,9 @@ from tensorflow.keras import utils
 from tensorflow.keras.layers import BatchNormalization, Dense, Dropout
 from tensorflow.keras.models import Sequential
 from NNModel.Util.helper import LossAndErrorPrintingCallback, _compare_results, fix_vectors
-from NNModel.Util.graphs import plot_data, parameter_tuning, learning_curve, confusion_matrix, roc_graph
+from NNModel.Util.graphs import parameter_tuning, confusion_matrix, roc_graph
 
-def load_data():
+def load_data_gpu():
     # load preparsed data - GPU accelerated version
     cwd = os.getcwd()
     parsed_fp = "/Data/Parsed/"
@@ -30,8 +30,8 @@ def load_data():
     features[:, 3] = features[:, 3] / cp.pi
     labels = cp.copy(data[:, 4])
     return [features.get(), labels.get()]
-"""
-def load_data():
+
+def load_data_cpu():
     # load preparsed data - CPU version
     cwd = os.getcwd()
     parsed_fp = "/Data/Parsed/"
@@ -53,7 +53,6 @@ def load_data():
     features[:, 3] = features[:, 3] / np.pi
     labels = np.copy(data[:, 4])
     return [features, labels]
-"""
 
 def load_single_data(data):
     # preprocess individual file data
@@ -67,7 +66,7 @@ def load_single_data(data):
 
 def load_ss_data():
     # sort loaded data into training and noise sets
-    data = load_data()
+    data = load_data_gpu()
     features = data[0]
     labels = data[1]
     ss_features = []
