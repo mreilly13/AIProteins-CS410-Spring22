@@ -180,7 +180,7 @@ To use the neural network to evaluate a `.pdb` file, run the command:
 ./dsbpredict -e [args]
 ```
 
-Where `[args]` is a path to one or more `.pdb` files or directories containind `.pdb` files. This will ignore existing disulfide bonds, but will still disregard any protein without explicit cysteine residues. To force the analysis of all residue pairs, not just cysteine pairs, run the command with the additional flag:
+Where `[args]` is a path to one or more `.pdb` files or directories containind `.pdb` files. This will ignore the existence of disulfide bonds and will evaluate all cysteine pairs, but will still disregard any protein without explicit cysteine residues. To force the analysis of all residue pairs, not just cysteine pairs, run the command with the additional flag:
 
 ```
 ./dsbpredict -e [args] --all-residues
@@ -208,7 +208,7 @@ squeue
 To get an interactive shell on a CPU compute node, run the command:
 
 ```
-$ srun -n 4 -N 1 -p [nodes] -t [duration] --pty /bin/bash  
+srun -n 4 -N 1 -p [nodes] -t [duration] --pty /bin/bash  
 ```
 
 where `[nodes]` is a node or comma separated list of nodes, and `[duration]` is how long you would like the session to be active for. 
@@ -220,12 +220,12 @@ Notes:
 To get an interactive shell on a GPU compute node, run the command:
 
 ```
-$ srun -n 8 -N 1 -p DGXA100 -t [duration] --mem=30gb --gres=gpu:1 --export=NONE --pty /bin/bash
+srun -n 8 -N 1 -p DGXA100 -t [duration] --mem=30gb --gres=gpu:1 --export=NONE --pty /bin/bash
 ```
 Once the session has been allocated, run the command:
 
 ```
-$ source /etc/profile
+source /etc/profile
 ```
 
 At this point, use the above usage instructions.
