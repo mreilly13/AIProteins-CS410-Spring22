@@ -70,7 +70,7 @@ Alternatively, you can download the compressed archive [here](https://github.com
 
 ### **Installation**
 
-All you neede to do to install this project is create the conda environment from the provided `env.yml` file. To do this, navigate to the main folder of the project and run the command:
+All you need to install this project is to create the conda environment from the provided `env.yml` file. To do this, navigate to the main folder of the project and run the command:
 
 ```
 conda env create -f env.yml
@@ -180,7 +180,7 @@ To use the neural network to evaluate a `.pdb` file, run the command:
 ./dsbpredict -e [args]
 ```
 
-Where `[args]` is a path to one or more `.pdb` files or directories containind `.pdb` files. This will ignore existing disulfide bonds, but will still disregard any protein without explicit cysteine residues. To force the analysis of all residue pairs, not just cysteine pairs, run the command with the additional flag:
+Where `[args]` is a path to one or more `.pdb` files or directories containind `.pdb` files. This will ignore the existence of disulfide bonds and will evaluate all cysteine pairs, but will still disregard any protein without explicit cysteine residues. To force the analysis of all residue pairs, not just cysteine pairs, run the command with the additional flag:
 
 ```
 ./dsbpredict -e [args] --all-residues
@@ -208,7 +208,7 @@ squeue
 To get an interactive shell on a CPU compute node, run the command:
 
 ```
-$ srun -n 4 -N 1 -p [nodes] -t [duration] --pty /bin/bash  
+srun -n 4 -N 1 -p [nodes] -t [duration] --pty /bin/bash  
 ```
 
 where `[nodes]` is a node or comma separated list of nodes, and `[duration]` is how long you would like the session to be active for. 
@@ -216,16 +216,16 @@ where `[nodes]` is a node or comma separated list of nodes, and `[duration]` is 
 Notes:
 - If there is more than one node argument, slurm will choose the first available node from the list.
 - This duration cannot be extended, so ensure that it is enough to complete your job. 
-<hr>
+
 To get an interactive shell on a GPU compute node, run the command:
 
 ```
-$ srun -n 8 -N 1 -p DGXA100 -t [duration] --mem=30gb --gres=gpu:1 --export=NONE --pty /bin/bash
+srun -n 8 -N 1 -p DGXA100 -t [duration] --mem=30gb --gres=gpu:1 --export=NONE --pty /bin/bash
 ```
 Once the session has been allocated, run the command:
 
 ```
-$ source /etc/profile
+source /etc/profile
 ```
 
 At this point, use the above usage instructions.
