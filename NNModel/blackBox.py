@@ -1,3 +1,5 @@
+# Files in the NNModel Package developed by Francisco Benavides github.com/1aidea
+
 import os
 import numpy as np
 import cupy as cp

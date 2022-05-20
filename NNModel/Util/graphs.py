@@ -1,3 +1,5 @@
+# Files in the NNModel Package developed by Francisco Benavides github.com/1aidea
+
 import seaborn
 from sklearn import metrics
 import matplotlib.pyplot as plt

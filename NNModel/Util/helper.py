@@ -1,3 +1,5 @@
+# Files in the NNModel Package developed by Francisco Benavides github.com/1aidea
+
 import numpy as np
 from tensorflow import keras
 from sklearn.model_selection import train_test_split

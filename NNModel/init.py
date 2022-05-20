@@ -1,3 +1,5 @@
+# Files in the NNModel Package developed by Francisco Benavides github.com/1aidea
+
 from NNModel.blackBox import neural_network, save_model, load_ss_data
 from NNModel.Util.helper import dataset_split, feature_scaling
 

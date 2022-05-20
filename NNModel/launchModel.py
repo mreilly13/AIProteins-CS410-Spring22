@@ -1,3 +1,5 @@
+# Files in the NNModel Package developed by Francisco Benavides github.com/1aidea
+
 from NNModel.blackBox import load_single_data, run_NNModel
 from NNModel.Util.graphs import plot_data
 
