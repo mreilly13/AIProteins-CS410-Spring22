@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+# developed by Michael Reilly github.com/mreilly13
+
 import numpy as np
 import subprocess
 import sys

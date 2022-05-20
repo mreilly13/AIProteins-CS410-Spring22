@@ -1,3 +1,5 @@
+# developed by Michael Reilly github.com/mreilly13
+
 import numpy as np
 import torch
 import Parser.Util.parser as parser
