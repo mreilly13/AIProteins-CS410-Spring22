@@ -216,7 +216,7 @@ where `[nodes]` is a node or comma separated list of nodes, and `[duration]` is 
 Notes:
 - If there is more than one node argument, slurm will choose the first available node from the list.
 - This duration cannot be extended, so ensure that it is enough to complete your job. 
-<hr>
+
 To get an interactive shell on a GPU compute node, run the command:
 
 ```
