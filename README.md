@@ -70,7 +70,7 @@ Alternatively, you can download the compressed archive [here](https://github.com
 
 ### **Installation**
 
-All you neede to do to install this project is create the conda environment from the provided `env.yml` file. To do this, navigate to the main folder of the project and run the command:
+All you need to install this project is to create the conda environment from the provided `env.yml` file. To do this, navigate to the main folder of the project and run the command:
 
 ```
 conda env create -f env.yml
