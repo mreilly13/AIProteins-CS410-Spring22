@@ -154,7 +154,7 @@ The parsed data are saved as `.csv` files in `/DSBPredict/Data/Parsed/`.
 
 ### **Training the Model**
 
-This function will use the parsed data to train a Neural Network to predict the likelihood that a pair of cysteine residues will be able to support a disulfide bond, ranking them by the network's confidence in its prediction. Further documentation of the neural network's structure is available [here](https://www.overleaf.com/read/zfwpcqzjnqjy).
+This function will use the parsed data to train a Neural Network to predict the likelihood that a pair of cysteine residues will be able to support a disulfide bond, ranking them by the network's confidence in its prediction. Further documentation of the neural network's structure is available [here](https://objects.githubusercontent.com/github-production-repository-file-5c1aeb/454845138/8748045?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220521%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220521T172417Z&X-Amz-Expires=300&X-Amz-Signature=fd76434e7b5a1cabad879d066829aae10feb5b8c3449c31b34172913de6accbe&X-Amz-SignedHeaders=host&actor_id=94937160&key_id=0&repo_id=454845138&response-content-disposition=attachment%3Bfilename%3DCS410_AIProteins_Project_Proposal.pdf&response-content-type=application%2Fpdf).
 
 To train the neural network, run the command:
 
