@@ -22,7 +22,14 @@ def parse_pdb_lines(lines):
             if (lines[ln])[:6] == "ENDMDL":
                 lines = lines[:ln]
                 break
+                
+#         if l[:4]=="ATOM"):
+#             #
+#             atom_line = l.split(" ")
+#             atom_line = [
         res = [(l[22:26],l[17:20]) for l in lines if l[:4]=="ATOM" and l[12:16].strip()=="CA"]
+        
+        
         seq = [util.aa2num[r[1]] if r[1] in util.aa2num.keys() else 20 for r in res]
         pdb_idx = [( l[21:22].strip(), int(l[22:26].strip()) ) for l in lines if l[:4]=="ATOM" and l[12:16].strip()=="CA"]  # chain letter, res num
 
@@ -68,6 +75,8 @@ def parse_pdb_lines(lines):
                 'res':[i[1] for i in res], # list of residues in the PDB file [L]
                 'ssbond':ssbond # ssbond data [L]
             }
+       
+        print(len(out['xyz']), len(out['idx']), len(out['res']))
 
         return out
     
