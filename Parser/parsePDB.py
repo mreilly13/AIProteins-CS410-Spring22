@@ -31,7 +31,7 @@ def parse(filename, test=False):
     idx = []
     res = []
     for i in range(pdb['xyz'].shape[0]):
-        if test or pdb['res'][i].endsWith("CYS"):
+        if test or pdb['res'][i].endswith("CYS"):
             xyz.append(pdb['xyz'][i])
             idx.append(pdb['idx'][i])
             res.append(pdb['res'][i])
