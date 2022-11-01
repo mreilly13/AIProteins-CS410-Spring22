@@ -33,6 +33,7 @@ argp.add_argument("-u", "--unzip", action="store_true", help="unzip the compress
 argp.add_argument("-p", "--parse", action="store_true", help="parse the PDB files; output files are stored in Data/Parsed")
 argp.add_argument("-t", "--train", action="store_true", help="train the neural network")
 argp.add_argument("-e", nargs='*', help="evaluate pdb files")
+argp.add_argument("-m", nargs=1, help="filepath to desired model; will use default model without this argument")
 argp.add_argument("--all-residues", action="store_true", help="ignore residue classification on evaluation")
 args = argp.parse_args()
 
@@ -145,7 +146,10 @@ if args.e:
         else:
             print(name, "is not a pdb file")
             
-    NNModel = load_model("YBYF_Model_1")
+    if args.m:
+        NNModel = load_model(args.m[0])
+    else:
+        NNModel = load_model("YBYF_Model_1_large")
     for arg in args.e:
         argpath = os.path.abspath(arg)
         if os.path.isdir(argpath):

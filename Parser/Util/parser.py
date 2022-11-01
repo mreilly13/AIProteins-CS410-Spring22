@@ -48,12 +48,14 @@ def parse_pdb_lines(lines):
         # remove duplicated (chain, resi)
         new_idx = []
         i_unique = []
+        new_res = []
         for i,idx in enumerate(pdb_idx):
             if idx not in new_idx:
                 new_idx.append(idx)
+                new_res.append(res[i])
                 i_unique.append(i)
-
         pdb_idx = new_idx
+        res = new_res
         xyz = xyz[i_unique]
         seq = np.array(seq)[i_unique]
 
@@ -75,8 +77,6 @@ def parse_pdb_lines(lines):
                 'res':[i[1] for i in res], # list of residues in the PDB file [L]
                 'ssbond':ssbond # ssbond data [L]
             }
-       
-        print(len(out['xyz']), len(out['idx']), len(out['res']))
 
         return out
     
