@@ -33,7 +33,7 @@ argp.add_argument("-u", "--unzip", action="store_true", help="unzip the compress
 argp.add_argument("-p", "--parse", action="store_true", help="parse the PDB files; output files are stored in Data/Parsed")
 argp.add_argument("-t", "--train", action="store_true", help="train the neural network")
 argp.add_argument("-e", nargs='*', help="evaluate pdb files")
-argp.add_argument("-m", nargs=1, help="filepath to desired model; will use default model without this argument")
+argp.add_argument("-m", nargs=1, help="name of desired model; will use default model without this argument")
 argp.add_argument("--all-residues", action="store_true", help="ignore residue classification on evaluation")
 args = argp.parse_args()
 
